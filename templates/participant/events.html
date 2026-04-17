@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
+<h2>Available events</h2>
+<p class="muted">Register with one click. You are signed in as <strong>{{ profile.name }}</strong>.</p>
+
+<form method="get" class="card compact-form">
+  <div class="grid-2">
+    <div>
+      <label for="search">Search by event name</label>
+      <input id="search" name="search" type="text" value="{{ filters.search }}" placeholder="Hackathon, Seminar...">
+    </div>
+    <div>
+      <label for="school">School</label>
+      <select id="school" name="school">
+        {% for value, label in schools %}
+        <option value="{{ value }}" {% if filters.school == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="category">Category</label>
+      <select id="category" name="category">
+        {% for value, label in categories %}
+        <option value="{{ value }}" {% if filters.category == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="sort">Sort</label>
+      <select id="sort" name="sort">
+        <option value="latest" {% if filters.sort == 'latest' %}selected{% endif %}>Latest</option>
+        <option value="popular" {% if filters.sort == 'popular' %}selected{% endif %}>Most popular</option>
+      </select>
+    </div>
+    <div>
+      <label for="status">Status</label>
+      <select id="status" name="status">
+        {% for value, label in statuses %}
+        <option value="{{ value }}" {% if filters.status == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="date_from">Date from</label>
+      <input id="date_from" name="date_from" type="date" value="{{ filters.date_from }}">
+    </div>
+    <div>
+      <label for="date_to">Date to</label>
+      <input id="date_to" name="date_to" type="date" value="{{ filters.date_to }}">
+    </div>
+  </div>
+  <button type="submit">Apply</button>
+  <a class="btn" href="{{ url_for('participant.events_list') }}">Reset</a>
+</form>
+
+{% if not events %}
+<p>No events listed yet.</p>
+{% else %}
+<table class="data">
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Category</th>
+      <th>School</th>
+      <th>Participants</th>
+      <th>Venue</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in events %}
+    <tr>
+      <td>{{ e.name }}</td>
+      <td>{{ e.date }}</td>
+      <td>
+        {% if e.status == 'Upcoming' %}
+        <span class="badge badge-upcoming">Upcoming</span>
+        {% elif e.status == 'Ongoing' %}
+        <span class="badge badge-ongoing">Ongoing Now</span>
+        {% else %}
+        <span class="badge badge-closed">{{ e.status }}</span>
+        {% endif %}
+      </td>
+      <td>{{ e.category }}</td>
+      <td>{{ e.school_or_department }}</td>
+      <td>{{ can_register_map[e.id].count }} / {{ e.max_participants or '∞' }}</td>
+      <td>{{ e.venue }}</td>
+      <td>
+        {% if e.id in joined_ids %}
+          <span class="muted">Registered</span>
+        {% elif can_register_map[e.id].allowed %}
+          <form method="post" action="{{ url_for('participant.register_for_event', event_id=e.id) }}" style="display:inline;">
+            <button type="submit">Register</button>
+          </form>
+        {% else %}
+          <span class="muted">Registration Closed or Results Announced</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if pagination.pages > 1 %}
+<div class="pagination">
+  {% if pagination.has_prev %}
+  <a href="{{ url_for('participant.events_list', page=pagination.prev_num, search=filters.search, category=filters.category, school=filters.school, status=filters.status, date_from=filters.date_from, date_to=filters.date_to, sort=filters.sort) }}">Previous</a>
+  {% endif %}
+
+  <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+
+  {% if pagination.has_next %}
+  <a href="{{ url_for('participant.events_list', page=pagination.next_num, search=filters.search, category=filters.category, school=filters.school, status=filters.status, date_from=filters.date_from, date_to=filters.date_to, sort=filters.sort) }}">Next</a>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

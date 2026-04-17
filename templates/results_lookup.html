@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Results lookup{% endblock %}
+{% block content %}
+<h2>Results lookup</h2>
+<form method="get" class="card">
+  <label for="event_id">Event</label>
+  <select id="event_id" name="event_id" onchange="this.form.submit()">
+    <option value="">— Select —</option>
+    {% for e in events %}
+    <option value="{{ e.id }}" {% if chosen and chosen.id == e.id %}selected{% endif %}>{{ e.name }} ({{ e.date }})</option>
+    {% endfor %}
+  </select>
+  <noscript><button type="submit">Show</button></noscript>
+</form>
+
+{% if chosen %}
+<h3>{{ chosen.name }}</h3>
+<table class="data">
+  <thead>
+    <tr><th>Rank</th><th>Name</th><th>Roll</th><th>Department</th><th>Prize</th></tr>
+  </thead>
+  <tbody>
+    {% for res, p in rows %}
+    <tr>
+      <td>{{ res.rank if res.rank is not none else '—' }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.roll_number or '—' }}</td>
+      <td>{{ p.department }}</td>
+      <td>{{ res.prize or '—' }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No results recorded for this event.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

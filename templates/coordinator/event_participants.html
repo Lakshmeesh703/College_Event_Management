@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Participants — {{ event.name }}{% endblock %}
+{% block content %}
+<h2>Participants</h2>
+<p class="muted">Event: <strong>{{ event.name }}</strong> · {{ event.date }}</p>
+
+<table class="data">
+  <thead>
+    <tr>
+      <th>Name</th><th>Roll</th><th>Department/Organization</th><th>WhatsApp</th><th>Year</th><th>External</th><th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ep, p in rows %}
+    <tr>
+      <td>{{ p.name }}</td>
+      <td>{{ p.roll_number or '—' }}</td>
+      <td>{{ p.department or p.organization or '—' }}</td>
+      <td>{{ p.whatsapp_number or '—' }}</td>
+      <td>{{ p.year or '—' }}</td>
+      <td>{{ 'Yes' if ep.is_external else 'No' }}</td>
+      <td><a href="{{ url_for('coordinator.edit_participant', event_id=event.id, participant_id=p.id) }}">Edit details</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7">No registrations yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p><a href="{{ url_for('coordinator.event_results', event_id=event.id) }}">Enter results</a> · <a href="{{ url_for('coordinator.dashboard') }}">Back</a></p>
+{% endblock %}

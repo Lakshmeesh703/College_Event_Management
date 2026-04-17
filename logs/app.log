@@ -1,0 +1,67 @@
+2026-04-15 21:59:57,199 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:00:13,558 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:00:37,146 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:00:49,602 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:01:06,807 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:05:20,061 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:06:51,348 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:11:06,649 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:11:57,082 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:14:08,793 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:21:08,855 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:33:21,061 INFO AUDIT action=password_reset user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:33:36,778 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:33:52,392 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-15 22:34:41,338 INFO AUDIT action=login user_id=2 role=coordinator details=email=coordinator@demo.local
+2026-04-15 22:42:34,716 INFO AUDIT action=logout user_id=2 role=coordinator details=None
+2026-04-15 22:43:47,842 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 22:44:01,350 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 23:09:53,615 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 23:11:10,462 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
+2026-04-15 23:13:48,973 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 23:24:31,711 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 23:26:04,685 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-15 23:26:25,339 INFO AUDIT action=login_failed user_id=None role=None details=login_id=Lakshmeesh Shet
+2026-04-15 23:27:48,946 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeesh shet
+2026-04-15 23:28:46,420 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 23:29:12,360 INFO AUDIT action=login_failed user_id=None role=None details=login_id=Lakshmeesh Shet
+2026-04-15 23:29:49,909 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-15 23:32:23,524 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 23:33:37,705 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-15 23:34:12,537 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-15 23:34:34,062 INFO AUDIT action=login_failed user_id=None role=None details=login_id=Lakshmeesh Shet
+2026-04-15 23:37:39,102 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 23:39:15,942 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-15 23:39:27,404 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-15 23:39:37,206 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-17 09:58:35,033 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-17 09:58:53,428 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-17 09:59:08,483 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-17 11:25:31,369 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-17 11:31:19,805 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-17 11:33:42,338 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-17 11:37:18,515 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-17 11:38:02,989 INFO AUDIT action=password_reset user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-17 11:38:12,091 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-17 11:38:42,387 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-17 11:41:02,660 INFO AUDIT action=signup user_id=9 role=student details=email=g9035694@gmail.com
+2026-04-17 20:14:50,209 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-17 20:15:00,378 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-17 20:15:15,507 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-17 20:18:03,916 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-17 20:25:27,080 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-17 22:23:14,070 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-17 22:26:51,646 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-17 22:27:07,865 INFO AUDIT action=login user_id=9 role=student details=email=g9035694@gmail.com
+2026-04-17 22:27:23,987 INFO AUDIT action=logout user_id=9 role=student details=None
+2026-04-17 23:16:45,328 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-17 23:18:00,264 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-17 23:26:44,249 INFO AUDIT action=staff_account_created user_id=10 role=management details=created_user_id=11 created_role=coordinator email=cricketfaan744@gmail.com
+2026-04-17 23:29:03,329 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-17 23:29:39,978 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-17 23:31:52,687 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-17 23:42:17,977 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-17 23:54:38,989 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-18 00:26:02,799 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-18 00:30:56,650 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-18 00:33:58,187 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com

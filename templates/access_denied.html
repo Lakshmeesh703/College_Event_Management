@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Access denied{% endblock %}
+{% block content %}
+<div class="card" style="border-left: 5px solid #ef4444;">
+  <h2>Access denied</h2>
+  <p>You are logged in, but this page is not available for your role (<strong>{{ current_user.role if current_user else 'unknown' }}</strong>).</p>
+  <p class="muted">If you need different permissions, ask an administrator to update your account.</p>
+  <p>
+    <a class="btn" href="{{ url_for('main.index') }}">Home</a>
+    {% if current_user %}
+      {% if current_user.role in ('student', 'participant') %}
+        <a class="btn" href="{{ url_for('participant.dashboard') }}">My dashboard</a>
+      {% elif current_user.role == 'coordinator' %}
+        <a class="btn" href="{{ url_for('coordinator.dashboard') }}">Coordinator hub</a>
+      {% elif current_user.role == 'management' %}
+        <a class="btn" href="{{ url_for('analytics.dashboard') }}">Analytics</a>
+      {% endif %}
+    {% endif %}
+  </p>
+</div>
+{% endblock %}

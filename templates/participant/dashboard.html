@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}My dashboard{% endblock %}
+{% block content %}
+<section class="card dashboard-head">
+  <h2>Student Dashboard</h2>
+  <p>
+    Hello, <strong>{{ profile.name }}</strong>
+    {% if profile.department %}({{ profile.department }}{% if profile.roll_number %} · {{ profile.roll_number }}{% endif %}){% elif profile.organization %}({{ profile.organization }}){% endif %}.
+  </p>
+  <div class="chip-row">
+    <span class="chip">Registered Events: {{ registration_count }}</span>
+  </div>
+</section>
+
+<div class="grid-2">
+  <div class="card">
+    <h3>Quick actions</h3>
+    <ul>
+      <li><a href="{{ url_for('participant.events_list') }}">Browse &amp; register for events</a></li>
+      <li><a href="{{ url_for('participant.history') }}">My participation history</a></li>
+      <li><a href="{{ url_for('main.calendar_view') }}">Campus calendar</a></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Stats</h3>
+    <p>Track your event journey with live status and result updates.</p>
+  </div>
+</div>
+
+<section class="card">
+  <h3 class="section-title">Upcoming Events</h3>
+  {% if upcoming_events %}
+  <table class="data">
+    <thead><tr><th>Event</th><th>Date</th><th>Status</th><th>Participants</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for e in upcoming_events %}
+      <tr>
+        <td>{{ e.name }}</td>
+        <td>{{ e.date }}</td>
+        <td><span class="badge badge-upcoming">{{ e.status }}</span></td>
+        <td>{{ can_register_map[e.id].count }} / {{ e.max_participants or '∞' }}</td>
+        <td>
+          {% if e.id in joined_ids %}
+          <span class="muted">Registered</span>
+          {% elif can_register_map[e.id].allowed %}
+          <form method="post" action="{{ url_for('participant.register_for_event', event_id=e.id) }}" style="display:inline;">
+            <button type="submit">Register</button>
+          </form>
+          {% else %}
+          <span class="muted">Registration Closed</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No upcoming events.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h3 class="section-title">Ongoing Events</h3>
+  {% if ongoing_events %}
+  <table class="data">
+    <thead><tr><th>Event</th><th>Date</th><th>Status</th><th>Participants</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for e in ongoing_events %}
+      <tr>
+        <td>{{ e.name }}</td>
+        <td>{{ e.date }}</td>
+        <td><span class="badge badge-ongoing">Ongoing Now</span></td>
+        <td>{{ can_register_map[e.id].count }} / {{ e.max_participants or '∞' }}</td>
+        <td>
+          {% if e.id in joined_ids %}
+          <span class="muted">Registered</span>
+          {% elif can_register_map[e.id].allowed %}
+          <form method="post" action="{{ url_for('participant.register_for_event', event_id=e.id) }}" style="display:inline;">
+            <button type="submit">Register</button>
+          </form>
+          {% else %}
+          <span class="muted">Registration Closed</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No ongoing events.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h3 class="section-title">Completed Events</h3>
+  {% if completed_events %}
+  <table class="data">
+    <thead><tr><th>Event</th><th>Date</th><th>Status</th><th>Participants</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for e in completed_events %}
+      <tr>
+        <td>{{ e.name }}</td>
+        <td>{{ e.date }}</td>
+        <td><span class="badge badge-closed">Event Completed</span></td>
+        <td>{{ can_register_map[e.id].count }} / {{ e.max_participants or '∞' }}</td>
+        <td><span class="muted">Registration Closed or Results Announced</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No completed events yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

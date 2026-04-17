@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Student sign up{% endblock %}
+{% block content %}
+<h2>Student sign up</h2>
+<p class="muted">Students and external participants can register here. Coordinators and management accounts are created by an admin.</p>
+<form method="post" class="card">
+  <label for="name">Full name</label>
+  <input type="text" id="name" name="name" required minlength="2">
+
+  <label for="email">Email (used to log in)</label>
+  <input type="email" id="email" name="email" required autocomplete="username">
+
+  <label for="password">Password (min 8 characters)</label>
+  <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
+
+  <label for="confirm_password">Confirm password</label>
+  <input type="password" id="confirm_password" name="confirm_password" required minlength="8" autocomplete="new-password">
+  <label><input type="checkbox" id="show_password_signup"> Show password</label>
+
+  <div id="roll-field">
+    <label for="roll_number">Roll number</label>
+    <input type="text" id="roll_number" name="roll_number" placeholder="Required for non-external students">
+  </div>
+
+  <label><input type="checkbox" id="is_external_user" name="is_external_user"> I am an external participant</label>
+
+  <label for="whatsapp_number">WhatsApp number (10 digits)</label>
+  <input type="text" id="whatsapp_number" name="whatsapp_number" pattern="\d{10}" maxlength="10" minlength="10" required placeholder="9876543210">
+
+  <label for="department">Department</label>
+  <input type="text" id="department" name="department" required placeholder="Enter your department">
+
+  <label for="organization">Organization/college</label>
+  <input type="text" id="organization" name="organization" required placeholder="Enter your organization or college">
+
+  <label for="year">Year of study (1–6)</label>
+  <input type="number" id="year" name="year" min="1" max="6" required placeholder="Required">
+
+  <button type="submit">Create account</button>
+</form>
+<p>Already have an account? <a href="{{ url_for('auth.login') }}">Log in</a>.</p>
+
+<script>
+  (function () {
+    const externalCheck = document.getElementById('is_external_user');
+    const rollField = document.getElementById('roll-field');
+    const rollInput = document.getElementById('roll_number');
+
+    function syncRollField() {
+      const isExternal = externalCheck.checked;
+      rollField.style.display = isExternal ? 'none' : 'block';
+      rollInput.required = !isExternal;
+      if (isExternal) {
+        rollInput.value = '';
+      }
+    }
+
+    externalCheck.addEventListener('change', syncRollField);
+    syncRollField();
+
+    const password = document.getElementById('password');
+    const confirm = document.getElementById('confirm_password');
+    const showPassword = document.getElementById('show_password_signup');
+    if (password && confirm && showPassword) {
+      showPassword.addEventListener('change', function () {
+        const mode = showPassword.checked ? 'text' : 'password';
+        password.type = mode;
+        confirm.type = mode;
+      });
+    }
+  })();
+</script>
+{% endblock %}

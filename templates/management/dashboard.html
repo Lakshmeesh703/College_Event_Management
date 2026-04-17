@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Management Dashboard{% endblock %}
+{% block content %}
+<section class="card dashboard-head">
+  <h2 class="plain">Admin Management Dashboard</h2>
+  <p class="muted">Use this dashboard to create and manage coordinator and management accounts.</p>
+  <div class="action-row">
+    <a class="btn" href="{{ url_for('management.create_coordinator_account') }}">Create Coordinator Account</a>
+    <a class="btn" href="{{ url_for('management.create_management_account') }}">Create Management Account</a>
+    <a class="btn btn-light" href="{{ url_for('analytics.dashboard') }}">Open Analytics</a>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="plain">Coordinator Data Section</h2>
+  {% if coordinator_rows %}
+    <div class="table-wrap management-table-wrap">
+      <table class="data management-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Gmail</th>
+            <th>Phone</th>
+            <th>University</th>
+            <th>University Outlook Mail</th>
+            <th>Position</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user, profile in coordinator_rows %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ profile.phone_number }}</td>
+            <td>{{ profile.university }}</td>
+            <td>{{ profile.university_outlook_email }}</td>
+            <td>{{ profile.position }}</td>
+            <td>{{ profile.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+              <form method="post" action="{{ url_for('management.delete_coordinator_account', user_id=user.id) }}" onsubmit="return confirm('Delete this coordinator account?');">
+                <button type="submit" class="btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">No coordinator accounts created yet.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2 class="plain">Management Data Section</h2>
+  {% if management_rows %}
+    <div class="table-wrap management-table-wrap">
+      <table class="data management-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Gmail</th>
+            <th>Phone</th>
+            <th>University</th>
+            <th>University Outlook Mail</th>
+            <th>Position</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user, profile in management_rows %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ profile.phone_number }}</td>
+            <td>{{ profile.university }}</td>
+            <td>{{ profile.university_outlook_email }}</td>
+            <td>{{ profile.position }}</td>
+            <td>{{ profile.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+              <form method="post" action="{{ url_for('management.delete_management_account', user_id=user.id) }}" onsubmit="return confirm('Delete this management account?');">
+                <button type="submit" class="btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">No management accounts created yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

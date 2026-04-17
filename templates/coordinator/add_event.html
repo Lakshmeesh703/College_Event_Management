@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Add event{% endblock %}
+{% block content %}
+<h2>Add event</h2>
+<p class="muted">This event will be linked to your coordinator account.</p>
+<form method="post" class="card" action="{{ url_for('coordinator.add_event') }}">
+  <label for="name">Event name</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="school">School</label>
+  <select id="school" name="school" required>
+    <option value="">Select school</option>
+    {% for val, label in schools %}
+    <option value="{{ val }}">{{ label }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="department">Department (for student analytics)</label>
+  <input type="text" id="department" name="department" placeholder="e.g. CSE or Computer Science" required>
+
+  <label for="category">Category</label>
+  <select id="category" name="category" required>
+    {% for val, label in categories %}
+    <option value="{{ val }}">{{ label }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="date">Date</label>
+  <input type="date" id="date" name="date" required>
+
+  <label for="registration_deadline">Registration deadline</label>
+  <input type="date" id="registration_deadline" name="registration_deadline" required>
+
+  <label for="max_participants">Max participants</label>
+  <input type="number" id="max_participants" name="max_participants" min="1" placeholder="Optional">
+
+  <label><input type="checkbox" name="allow_external"> Allow external participants</label>
+
+  <label for="venue">Venue</label>
+  <input type="text" id="venue" name="venue" required>
+
+  <label for="organizer">Organizer name</label>
+  <input type="text" id="organizer" name="organizer" required>
+
+  <button type="submit">Save event</button>
+  <a href="{{ url_for('coordinator.dashboard') }}">Cancel</a>
+</form>
+{% endblock %}

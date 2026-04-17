@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Verify signup OTP{% endblock %}
+{% block content %}
+<h2>Verify your email</h2>
+<p class="muted">Enter the 6-digit OTP sent to {{ email }} to complete account creation.</p>
+<form method="post" class="card">
+  <label for="otp_code">OTP code</label>
+  <input type="text" id="otp_code" name="otp_code" required minlength="6" maxlength="6" pattern="\d{6}" placeholder="123456">
+  <button type="submit">Verify and create account</button>
+</form>
+<p><a href="{{ url_for('auth.signup') }}">Back to signup</a></p>
+{% endblock %}

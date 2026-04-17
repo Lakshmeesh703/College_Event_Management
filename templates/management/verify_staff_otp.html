@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Verify Staff OTP{% endblock %}
+{% block content %}
+<section class="card auth-card">
+  <h2 class="plain">Verify OTP to Create {{ pending.role|title }} Account</h2>
+  <p class="muted">Enter the 6-digit OTP sent to {{ pending.gmail_email }}.</p>
+
+  <form method="post" action="{{ url_for('management.verify_staff_otp') }}">
+    <label for="otp_code">OTP Code</label>
+    <input type="text" id="otp_code" name="otp_code" required maxlength="6" pattern="\d{6}" placeholder="Enter 6-digit OTP">
+    <button type="submit" class="full-btn">Verify OTP and Create Account</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Edit event{% endblock %}
+{% block content %}
+<h2>Edit event</h2>
+<form method="post" class="card">
+  <label for="name">Event name</label>
+  <input type="text" id="name" name="name" value="{{ event.name }}" required>
+
+  <label for="school">School</label>
+  <select id="school" name="school" required>
+    {% for val, label in schools %}
+    <option value="{{ val }}" {% if event.school_or_department == val %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="department">Department</label>
+  <input type="text" id="department" name="department" value="{{ event.department or '' }}" required>
+
+  <label for="category">Category</label>
+  <select id="category" name="category" required>
+    {% for val, label in categories %}
+    <option value="{{ val }}" {% if event.category == val %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="date">Date</label>
+  <input type="date" id="date" name="date" value="{{ event.date.isoformat() }}" required>
+
+  <label for="registration_deadline">Registration deadline</label>
+  <input type="date" id="registration_deadline" name="registration_deadline" value="{{ event.registration_deadline.isoformat() if event.registration_deadline else '' }}" required>
+
+  <label for="max_participants">Max participants</label>
+  <input type="number" id="max_participants" name="max_participants" min="1" value="{{ event.max_participants or '' }}">
+
+  <label><input type="checkbox" name="allow_external" {% if event.allow_external %}checked{% endif %}> Allow external participants</label>
+  <label><input type="checkbox" name="registration_closed_manually" {% if event.registration_closed_manually %}checked{% endif %}> Close registration manually</label>
+
+  <label for="venue">Venue</label>
+  <input type="text" id="venue" name="venue" value="{{ event.venue }}" required>
+
+  <label for="organizer">Organizer name</label>
+  <input type="text" id="organizer" name="organizer" value="{{ event.organizer }}" required>
+
+  <button type="submit">Save changes</button>
+  <a href="{{ url_for('coordinator.dashboard') }}">Back</a>
+</form>
+{% endblock %}

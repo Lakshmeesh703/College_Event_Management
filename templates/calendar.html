@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Event calendar{% endblock %}
+{% block content %}
+<h2>Event calendar</h2>
+<p class="muted">Events are separated by status for quick browsing.</p>
+
+{% for section in calendar_sections %}
+<div class="calendar-day card calendar-section-{{ section.key }}">
+  <h3>{{ section.title }}</h3>
+  {% if section.events %}
+  <ul>
+    {% for e in section.events %}
+    <li>
+      <strong>{{ e.name }}</strong> — {{ e.date.strftime('%d %b %Y') }} · {{ e.category|title }} · {{ e.school_or_department }} · {{ e.venue }}
+      <span class="muted">[{{ e.status }}]</span>
+      <span class="muted">(Organizer: {{ e.organizer }})</span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="muted">No events in this section.</p>
+  {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

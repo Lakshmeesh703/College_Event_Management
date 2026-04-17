@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Coordinator hub{% endblock %}
+{% block content %}
+<section class="card dashboard-head">
+  <h2>Coordinator Dashboard</h2>
+  <p class="muted">Logged in as <strong>{{ user.name }}</strong>. Manage events, participants, registration control, and results.</p>
+  <div class="action-row">
+    <a class="btn" href="{{ url_for('coordinator.add_event') }}">+ Create Event</a>
+  </div>
+</section>
+
+<h3 class="section-title">My Events</h3>
+{% if not events %}
+<p class="muted">You have not created any events yet.</p>
+{% else %}
+<table class="data">
+  <thead>
+    <tr>
+      <th>Name</th><th>School</th><th>Date</th><th>Status</th><th>Category</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in events %}
+    <tr>
+      <td>{{ e.name }}</td>
+      <td>{{ e.school_or_department }}</td>
+      <td>{{ e.date }}</td>
+      <td>
+        {% if e.status == 'Upcoming' %}
+        <span class="badge badge-upcoming">Upcoming</span>
+        {% elif e.status == 'Ongoing' %}
+        <span class="badge badge-ongoing">Ongoing Now</span>
+        {% elif e.status == 'Completed' %}
+        <span class="badge badge-closed">Event Completed</span>
+        {% else %}
+        <span class="badge badge-closed">Registration Closed</span>
+        {% endif %}
+      </td>
+      <td>{{ e.category }}</td>
+      <td>
+        <div class="table-actions">
+          <a href="{{ url_for('coordinator.edit_event', event_id=e.id) }}">Edit</a>
+          <a href="{{ url_for('coordinator.event_participants', event_id=e.id) }}">Participants</a>
+          <a href="{{ url_for('coordinator.event_results', event_id=e.id) }}">Results</a>
+          <form method="post" action="{{ url_for('coordinator.toggle_registration', event_id=e.id) }}" style="display:inline;">
+            <button type="submit">Toggle Registration</button>
+          </form>
+          <form method="post" action="{{ url_for('coordinator.delete_event', event_id=e.id) }}" style="display:inline;" onsubmit="return confirm('Delete this event and all registrations/results?');">
+            <button type="submit" class="btn-danger">Delete</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if unassigned_events %}
+<h3 class="section-title">Legacy Events (No Owner)</h3>
+<p class="muted">Open an event and save — it will be assigned to you.</p>
+<table class="data">
+  <thead>
+    <tr><th>Name</th><th>School</th><th>Date</th><th>Status</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    {% for e in unassigned_events %}
+    <tr>
+      <td>{{ e.name }}</td>
+      <td>{{ e.school_or_department }}</td>
+      <td>{{ e.date }}</td>
+      <td>
+        {% if e.status == 'Upcoming' %}
+        <span class="badge badge-upcoming">Upcoming</span>
+        {% elif e.status == 'Ongoing' %}
+        <span class="badge badge-ongoing">Ongoing Now</span>
+        {% elif e.status == 'Completed' %}
+        <span class="badge badge-closed">Event Completed</span>
+        {% else %}
+        <span class="badge badge-closed">Registration Closed</span>
+        {% endif %}
+      </td>
+      <td>
+        <div class="table-actions">
+          <a href="{{ url_for('coordinator.edit_event', event_id=e.id) }}">Edit / Claim</a>
+          <a href="{{ url_for('coordinator.event_participants', event_id=e.id) }}">Participants</a>
+          <a href="{{ url_for('coordinator.event_results', event_id=e.id) }}">Results</a>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

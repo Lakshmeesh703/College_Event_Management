@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+{% block title %}Analytics Dashboard{% endblock %}
+{% block content %}
+<div class="mini-analytics">
+  <section class="card mini-analytics-head">
+    <h2 class="plain">Analytics Snapshot</h2>
+    <p class="muted">Small and simple summary for quick understanding.</p>
+  </section>
+
+  <form method="get" class="card mini-filter" action="{{ url_for('analytics.dashboard') }}">
+    <div class="mini-filter-grid">
+      <div>
+        <label for="date_from">From Date</label>
+        <input type="date" id="date_from" name="date_from" value="{{ filters.date_from }}">
+      </div>
+      <div>
+        <label for="date_to">To Date</label>
+        <input type="date" id="date_to" name="date_to" value="{{ filters.date_to }}">
+      </div>
+      <div>
+        <label for="category">Category</label>
+        <select id="category" name="category">
+          {% for val, label in filter_categories %}
+          <option value="{{ val }}" {% if filters.category == val %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mini-filter-actions">
+        <button type="submit">Apply</button>
+      </div>
+    </div>
+  </form>
+
+  <section class="mini-kpis">
+    <article class="kpi-card">
+      <p>Total Events</p>
+      <h3>{{ kpis.total_events }}</h3>
+    </article>
+    <article class="kpi-card">
+      <p>Total Schools</p>
+      <h3>{{ kpis.total_schools }}</h3>
+    </article>
+    <article class="kpi-card">
+      <p>Total Participants</p>
+      <h3>{{ kpis.total_participants }}</h3>
+    </article>
+    <article class="kpi-card">
+      <p>Avg/Event</p>
+      <h3>{{ kpis.avg_participation }}</h3>
+    </article>
+  </section>
+
+  <section class="card mini-chart-card">
+    <h3 class="plain">Events by School</h3>
+    {% set qs = ('?' + chart_q) if chart_q else '' %}
+    <img src="{{ url_for('analytics.chart_bar') }}{{ qs }}" alt="Events by school">
+  </section>
+
+  <section class="card mini-more-graphs">
+    <h3 class="plain">More Graphs</h3>
+    <div class="mini-graph-grid">
+      <div class="mini-graph-card">
+        <h4 class="plain">Monthly Trend</h4>
+        <div class="mini-canvas-wrap">
+          <canvas id="monthlyTrendChart"></canvas>
+        </div>
+      </div>
+      <div class="mini-graph-card">
+        <h4 class="plain">Internal vs External</h4>
+        <div class="mini-canvas-wrap">
+          <canvas id="audienceSplitChart"></canvas>
+        </div>
+      </div>
+      <div class="mini-graph-card">
+        <h4 class="plain">Registrations by Year</h4>
+        <div class="mini-canvas-wrap">
+          <canvas id="yearWiseChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3 class="plain">Top 8 Events by Registrations</h3>
+    <div class="table-wrap management-table-wrap">
+      <table class="data">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Registrations</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in top_events[:8] %}
+          <tr>
+            <td>{{ row.name }}</td>
+            <td>{{ row.participant_count }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="2">No data for selected filters.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3 class="plain">School Analytics</h3>
+    <div class="grid-2">
+      <div>
+        <h4 class="plain">Registrations by School</h4>
+        <div class="table-wrap management-table-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>School</th>
+                <th>Registrations</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in school_registration_rows %}
+              <tr>
+                <td>{{ row.school or 'Unknown' }}</td>
+                <td>{{ row.registrations }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="2">No school registration data.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h4 class="plain">School Insight</h4>
+        <p class="muted">Top school by events: <strong>{{ insights.top_school_name }}</strong> ({{ insights.top_school_events }})</p>
+        <p class="muted">Internal registrations share: <strong>{{ insights.internal_share }}%</strong></p>
+        <p class="muted">External registrations share: <strong>{{ insights.external_share }}%</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3 class="plain">Student Analytics</h3>
+    <div class="grid-2">
+      <div>
+        <h4 class="plain">Registrations by Department</h4>
+        <div class="table-wrap management-table-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Registrations</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in student_department_rows %}
+              <tr>
+                <td>{{ row.department }}</td>
+                <td>{{ row.registrations }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="2">No department data.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h4 class="plain">Registrations by Year</h4>
+        <div class="table-wrap management-table-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Registrations</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in student_year_rows %}
+              <tr>
+                <td>{{ row.year }}</td>
+                <td>{{ row.registrations }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="2">No year data.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="plain">Top Active Students</h4>
+    <div class="table-wrap management-table-wrap">
+      <table class="data">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Department</th>
+            <th>Events Joined</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in active_students_rows %}
+          <tr>
+            <td>{{ row.name }}</td>
+            <td>{{ row.department }}</td>
+            <td>{{ row.events_joined }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="3">No student activity data.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  (function () {
+    const monthlyLabels = {{ monthly | map(attribute='month') | list | tojson }};
+    const monthlyValues = {{ monthly | map(attribute='event_count') | list | tojson }};
+    const yearLabels = {{ student_year_rows | map(attribute='year') | list | tojson }};
+    const yearValues = {{ student_year_rows | map(attribute='registrations') | list | tojson }};
+    const internalCount = {{ internal | int }};
+    const externalCount = {{ external | int }};
+
+    const gridColor = 'rgba(148, 163, 184, 0.2)';
+
+    const monthlyEl = document.getElementById('monthlyTrendChart');
+    if (monthlyEl) {
+      new Chart(monthlyEl, {
+        type: 'line',
+        data: {
+          labels: monthlyLabels,
+          datasets: [{
+            label: 'Events',
+            data: monthlyValues,
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37, 99, 235, 0.12)',
+            fill: true,
+            tension: 0.3,
+            pointRadius: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: gridColor } },
+            y: { beginAtZero: true, grid: { color: gridColor } }
+          }
+        }
+      });
+    }
+
+    const splitEl = document.getElementById('audienceSplitChart');
+    if (splitEl) {
+      new Chart(splitEl, {
+        type: 'doughnut',
+        data: {
+          labels: ['Internal', 'External'],
+          datasets: [{
+            data: [internalCount, externalCount],
+            backgroundColor: ['#10b981', '#f97316'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom' } }
+        }
+      });
+    }
+
+    const yearEl = document.getElementById('yearWiseChart');
+    if (yearEl) {
+      new Chart(yearEl, {
+        type: 'bar',
+        data: {
+          labels: yearLabels,
+          datasets: [{
+            label: 'Registrations',
+            data: yearValues,
+            backgroundColor: '#7c3aed',
+            borderRadius: 6,
+            maxBarThickness: 34
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false } },
+            y: { beginAtZero: true, grid: { color: gridColor } }
+          }
+        }
+      });
+    }
+  })();
+</script>
+{% endblock %}

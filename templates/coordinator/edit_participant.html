@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Edit Participant{% endblock %}
+{% block content %}
+<h2>Edit participant details</h2>
+<p class="muted">Event: <strong>{{ event.name }}</strong></p>
+
+<form method="post" class="card">
+  <label for="name">Participant name</label>
+  <input type="text" id="name" name="name" value="{{ participant.name }}" required>
+
+  <label for="department">Department</label>
+  <input type="text" id="department" name="department" value="{{ participant.department or '' }}" placeholder="Leave blank for external participants">
+
+  <label for="organization">Organization/college</label>
+  <input type="text" id="organization" name="organization" value="{{ participant.organization or '' }}">
+
+  <label for="whatsapp_number">WhatsApp number (10 digits)</label>
+  <input type="text" id="whatsapp_number" name="whatsapp_number" value="{{ participant.whatsapp_number or '' }}" pattern="\d{10}" minlength="10" maxlength="10" required>
+
+  <label><input type="checkbox" name="is_external" {% if participation.is_external %}checked{% endif %}> Mark as external participant</label>
+
+  <button type="submit">Save changes</button>
+  <a href="{{ url_for('coordinator.event_participants', event_id=event.id) }}">Cancel</a>
+</form>
+{% endblock %}

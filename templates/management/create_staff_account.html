@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Create {{ role_label }} Account{% endblock %}
+{% block content %}
+<section class="card auth-card">
+  <h2 class="plain">Create {{ role_label }} Account</h2>
+  <p class="muted">OTP verification will be sent to the Gmail address entered below.</p>
+
+  <form method="post" action="{{ submit_url }}">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" required placeholder="Enter full name">
+
+    <label for="gmail_email">Gmail Address (OTP target)</label>
+    <input type="email" id="gmail_email" name="gmail_email" required placeholder="example@gmail.com">
+
+    <label for="university_outlook_email">University Mail (must end with @chanakyauniversity.edu.in)</label>
+    <input type="email" id="university_outlook_email" name="university_outlook_email" required placeholder="name@chanakyauniversity.edu.in">
+
+    <label for="phone_number">Phone Number</label>
+    <input type="text" id="phone_number" name="phone_number" required maxlength="10" placeholder="10-digit number">
+
+    <label for="university">University</label>
+    <input type="text" id="university" name="university" required placeholder="University name">
+
+    <label for="position">Position</label>
+    <input type="text" id="position" name="position" required placeholder="Position / Designation">
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required minlength="8" placeholder="Minimum 8 characters">
+
+    <label for="confirm_password">Confirm Password</label>
+    <input type="password" id="confirm_password" name="confirm_password" required minlength="8" placeholder="Re-enter password">
+
+    <button type="submit" class="full-btn">Send OTP and Continue</button>
+  </form>
+</section>
+{% endblock %}
