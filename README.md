@@ -165,6 +165,8 @@ with app.app_context():
 3. Set environment variables on the host (see below). **Do not commit secrets.**
 4. Add your **live URL** and **public GitHub repo link** in this README when you submit.
 
+The project pins Python 3.12 through `runtime.txt` so Railway and Render do not fall back to Python 3.13, which can force source builds of `pandas` and fail deployment.
+
 **App URL (fill in after deploy):** add your live public URL here after deployment
 
 ## Quick setup (local)
