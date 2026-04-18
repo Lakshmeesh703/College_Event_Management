@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# One command to run locally — SQLite, no Postgres, no manual .env needed.
+# One command to run locally with Postgres/Supabase configuration.
 set -e
 cd "$(dirname "$0")"
 
 # Minimal .env so the app and seed scripts behave the same way
 if [ ! -f .env ]; then
-  echo "Creating .env (SQLite mode — safe for local dev)."
-  printf '%s\n' "USE_SQLITE_LOCAL=1" "SECRET_KEY=dev-local-change-me" > .env
+  echo "Creating .env with SECRET_KEY only. Add DATABASE_URL or full DB_* values before running."
+  printf '%s\n' "SECRET_KEY=dev-local-change-me" > .env
 fi
 
 read_env_value() {
@@ -27,19 +27,20 @@ fi
 
 export SECRET_KEY="${SECRET_KEY:-dev-local-change-me}"
 
-# Respect existing PostgreSQL configuration when present.
-# Only fall back to SQLite if no DB settings were provided in .env or the environment.
+# Ensure PostgreSQL/Supabase settings are present.
 db_url="${DATABASE_URL:-$(read_env_value DATABASE_URL)}"
 db_user="${DB_USER:-$(read_env_value DB_USER)}"
 db_password="${DB_PASSWORD:-$(read_env_value DB_PASSWORD)}"
 db_host="${DB_HOST:-$(read_env_value DB_HOST)}"
+db_port="${DB_PORT:-$(read_env_value DB_PORT)}"
 db_name="${DB_NAME:-$(read_env_value DB_NAME)}"
 
-if [ -z "$db_url" ] && [ -z "$db_user" ] && [ -z "$db_password" ] && [ -z "$db_host" ] && [ -z "$db_name" ]; then
-  export USE_SQLITE_LOCAL=1
-else
-  # Prevent stale shell values from forcing SQLite when PostgreSQL is configured.
-  unset USE_SQLITE_LOCAL
+if [ -z "$db_url" ]; then
+  if [ -z "$db_user" ] || [ -z "$db_password" ] || [ -z "$db_host" ] || [ -z "$db_port" ] || [ -z "$db_name" ]; then
+    echo "Missing database configuration."
+    echo "Set DATABASE_URL, or set all DB_USER/DB_PASSWORD/DB_HOST/DB_PORT/DB_NAME in .env or environment."
+    exit 1
+  fi
 fi
 
 # Use provided PORT, or PORT from .env, or default to 5000.

@@ -19,7 +19,7 @@ Web portal for logging college events, participants, registrations, and competit
 
 ## How to run (simple)
 
-### Easiest — zero manual `.env`
+### Easiest — quick local start
 
 **Linux / macOS:** in the project folder run:
 
@@ -28,7 +28,7 @@ chmod +x run_local.sh   # first time only
 ./run_local.sh
 ```
 
-The script creates **`.env`** (SQLite + secret) if missing, creates **`.venv`** and installs packages once, then starts the server. Open **http://127.0.0.1:5000**. **Ctrl+C** to stop.
+The script creates **`.env`** (secret only) if missing, creates **`.venv`** and installs packages once, then starts the server. Set either `DATABASE_URL` or all `DB_*` values before running. Open **http://127.0.0.1:5000**. **Ctrl+C** to stop.
 
 **Windows:** double-click **`run_local.bat`** (or run it from Command Prompt in the project folder). Same behaviour.
 
@@ -49,12 +49,14 @@ source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-**2. Tell the app to use SQLite** (no PostgreSQL install). Create a file named `.env` next to `app.py` with:
+**2. Configure PostgreSQL / Supabase**. Create a file named `.env` next to `app.py` with:
 
 ```env
-USE_SQLITE_LOCAL=1
+DATABASE_URL=postgresql://USER:PASSWORD@HOST:5432/DBNAME
 SECRET_KEY=my-secret-key
 ```
+
+Or set all `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`, and `DB_NAME`.
 
 **3. Every time you open the project**
 
@@ -66,7 +68,7 @@ python app.py
 
 Open **http://127.0.0.1:5000**.
 
-For your **final submission / cloud deploy**, use a real **PostgreSQL** database and set `DATABASE_URL` or `DB_*` in `.env` instead of `USE_SQLITE_LOCAL` (see below).
+For your **final submission / cloud deploy**, use **Supabase/PostgreSQL** with `DATABASE_URL` or full `DB_*` values (see below).
 
 ---
 
@@ -136,7 +138,7 @@ export ADMIN_NAME="CU Management Admin"
 python scripts/seed_data.py
 ```
 
-**Upgrading an old database:** `db.create_all()` does not add new columns to existing SQLite/Postgres tables. For local SQLite, delete `instance/college_events.db` and restart, or run manual `ALTER TABLE` / use `database/schema.sql` as a reference.
+**Upgrading an old database:** `db.create_all()` does not add new columns to existing tables. Run manual `ALTER TABLE` statements (or use `database/schema.sql` as a reference) when upgrading an existing PostgreSQL/Supabase database.
 
 **Adding staff without the seed script** (Flask shell example):
 
@@ -248,7 +250,7 @@ Open `http://127.0.0.1:5000`.
 | `ensurepip is not available` | Install `python3-venv` (see Ubuntu steps in section 2). |
 | `externally-managed-environment` (pip) | Do not use `pip install` on system Python on newer Ubuntu. Use a **virtual environment** as in section 2. |
 | `fe_sendauth: no password supplied` | PostgreSQL is reachable but the app sent an **empty password**. Set **`DB_PASSWORD`** in `.env` to your PostgreSQL user’s password, or use a full **`DATABASE_URL`** that includes the password. Create the DB if needed: `createdb college_events`. |
-| Run without local Postgres (quick UI test) | In `.env` add **`USE_SQLITE_LOCAL=1`** and comment out or remove conflicting `DATABASE_URL`. The DB file is created under `instance/`. Use real **PostgreSQL** for deployment and coursework submission. |
+| Missing database configuration | Set `DATABASE_URL`, or set all `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`, and `DB_NAME` values in `.env`. |
 | Database connection refused / could not connect | PostgreSQL must be running and `.env` / `DATABASE_URL` must be correct. Create the database (`createdb college_events`) if needed. |
 
 ### 5. Optional sample data

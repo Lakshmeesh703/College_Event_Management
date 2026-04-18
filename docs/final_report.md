@@ -52,7 +52,7 @@ The project includes:
 - `Procfile` for Gunicorn startup
 - `render.yaml` for Render deployment
 - `.env.example` for environment variable setup
-- SQLite fallback for local testing
+- PostgreSQL/Supabase-first configuration for local and cloud runs
 
 ## Notes
 

@@ -23,5 +23,5 @@ This project is ready to deploy on Render or a similar Python hosting platform.
 
 ## Local testing mode
 
-For quick UI testing without PostgreSQL, set `USE_SQLITE_LOCAL=1` in `.env`.
-Use PostgreSQL for final submission and public deployment.
+Use the same PostgreSQL/Supabase setup locally as production by setting `DATABASE_URL`
+or all `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`, and `DB_NAME` values.

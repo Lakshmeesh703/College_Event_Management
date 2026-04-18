@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from flask import Flask, session
-from sqlalchemy import text
+from sqlalchemy import inspect, text
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config import Config
@@ -35,9 +35,8 @@ def _column_exists(table: str, column: str) -> bool:
     try:
         return db.session.execute(q, {"table_name": table, "column_name": column}).first() is not None
     except Exception:
-        # SQLite fallback
-        rows = db.session.execute(text(f"PRAGMA table_info({table})")).all()
-        return any(r[1] == column for r in rows)
+        # Generic fallback for engines without information_schema support.
+        return any(c.get("name") == column for c in inspect(db.engine).get_columns(table))
 
 
 def _ensure_schema_updates():

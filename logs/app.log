@@ -65,3 +65,8 @@
 2026-04-18 00:26:02,799 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
 2026-04-18 00:30:56,650 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
 2026-04-18 00:33:58,187 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
+2026-04-18 23:29:48,832 INFO AUDIT action=login user_id=11 role=coordinator details=email=cricketfaan744@gmail.com
+2026-04-18 23:31:05,140 INFO AUDIT action=logout user_id=11 role=coordinator details=None
+2026-04-18 23:31:09,349 INFO AUDIT action=login user_id=9 role=student details=email=g9035694@gmail.com
+2026-04-18 23:31:13,457 INFO AUDIT action=logout user_id=9 role=student details=None
+2026-04-18 23:31:27,084 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com

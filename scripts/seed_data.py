@@ -5,7 +5,7 @@ Run from project root:
 
   python scripts/seed_data.py
 
-Requires DATABASE_URL / DB_* or USE_SQLITE_LOCAL in .env.
+Requires DATABASE_URL or full DB_* values in .env.
 Re-running on the same DB will skip if demo users already exist.
 """
 from __future__ import annotations

@@ -2,11 +2,10 @@
 Run without bash:  .venv/bin/python start.py   (after venv exists)
 
 Or:  python3 start.py  if dependencies are installed globally.
-Sets SQLite + SECRET_KEY automatically when missing.
+Sets SECRET_KEY automatically when missing.
 """
 import os
 
-os.environ.setdefault("USE_SQLITE_LOCAL", "1")
 os.environ.setdefault("SECRET_KEY", "dev-local-change-me")
 
 # Import app after env is set
