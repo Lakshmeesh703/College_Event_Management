@@ -4,9 +4,23 @@
 <h2>Competition results</h2>
 <p class="muted">{{ event.name }} — only registered participants are listed.</p>
 
+<label for="competition_picker">Competition</label>
+<select id="competition_picker" onchange="if(this.value){window.location='{{ url_for('coordinator.event_results', event_id=event.id) }}?competition_id='+this.value}else{window.location='{{ url_for('coordinator.event_results', event_id=event.id) }}';}">
+  <option value="">— Select competition —</option>
+  {% for c in competitions %}
+  <option value="{{ c.id }}" {% if selected_competition and selected_competition.id == c.id %}selected{% endif %}>{{ c.name }} ({{ c.date }})</option>
+  {% endfor %}
+</select>
+
 <form method="post" class="card">
+  <input type="hidden" name="competition_id" value="{{ selected_competition.id if selected_competition else '' }}">
+
+  {% if not selected_competition %}
+  <p class="muted">Select a competition to enter results.</p>
+  {% endif %}
+
   <label for="participant_id">Participant</label>
-  <select id="participant_id" name="participant_id" required>
+  <select id="participant_id" name="participant_id" required {% if not selected_competition %}disabled{% endif %}>
     <option value="">— Select —</option>
     {% for ep, p in regs %}
     <option value="{{ p.id }}">{{ p.name }}{% if p.roll_number %} ({{ p.roll_number }}){% endif %}</option>
@@ -19,7 +33,7 @@
   <label for="prize">Prize / award</label>
   <input type="text" id="prize" name="prize" placeholder="Optional">
 
-  <button type="submit">Save result</button>
+  <button type="submit" {% if not selected_competition %}disabled{% endif %}>Save result</button>
 </form>
 
 {% if regs %}

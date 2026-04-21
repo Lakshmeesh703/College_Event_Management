@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% block title %}Events by School (Admin){% endblock %}
+{% block content %}
+<section class="card dashboard-head">
+  <h2 class="plain">Event Data by School</h2>
+  <p class="muted">View all events organized by school with full details, participant data, and management options.</p>
+  <div class="action-row">
+    <a class="btn btn-light" href="{{ url_for('management.dashboard') }}">Back to Admin Dashboard</a>
+  </div>
+</section>
+
+{% if schools_data %}
+  {% for school_item in schools_data %}
+  <section class="card">
+    <h3 class="plain">{{ school_item.school }} ({{ school_item.total_events }} events)</h3>
+    <div class="table-wrap management-table-wrap" style="overflow-x: auto;">
+      <table class="data" style="font-size: 0.9rem;">
+        <thead>
+          <tr>
+            <th style="width: 12%;">Event Name</th>
+            <th style="width: 7%;">Date</th>
+            <th style="width: 8%;">Category</th>
+            <th style="width: 7%;">Status</th>
+            <th style="width: 8%;">Venue</th>
+            <th style="width: 8%;">Organizer</th>
+            <th style="width: 6%;">Registered</th>
+            <th style="width: 6%;">Results</th>
+            <th style="width: 8%;">Reg. Deadline</th>
+            <th style="width: 10%;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in school_item.events %}
+          <tr>
+            <td><strong>{{ event.name }}</strong></td>
+            <td>{{ event.date.strftime('%d-%b-%Y') }}</td>
+            <td>{{ event.category }}</td>
+            <td>
+              {% if event.status == 'Upcoming' %}
+              <span class="badge badge-upcoming">Upcoming</span>
+              {% elif event.status == 'Ongoing' %}
+              <span class="badge badge-ongoing">Ongoing</span>
+              {% elif event.status == 'Completed' %}
+              <span class="badge badge-closed">Completed</span>
+              {% else %}
+              <span class="badge badge-closed">Closed</span>
+              {% endif %}
+            </td>
+            <td>{{ event.venue[:20] }}{% if event.venue|length > 20 %}...{% endif %}</td>
+            <td>{{ event.organizer }}</td>
+            <td><span class="badge">{{ event.participants }}</span></td>
+            <td><span class="badge">{{ event.results }}</span></td>
+            <td>{{ event.registration_deadline.strftime('%d-%b-%Y') if event.registration_deadline else 'N/A' }}</td>
+            <td style="min-width: 260px;">
+              <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                <!-- View Details -->
+                <button class="btn btn-xs btn-light" onclick="showEventDetails({{ event.id }}, '{{ event.name }}', '{{ event.venue }}', '{{ event.organizer }}', '{{ event.department }}', {{ event.max_participants or 'null' }}, '{{ 'Yes' if event.allow_external else 'No' }}', '{{ event.creator_name }}')">
+                  View
+                </button>
+                <!-- Edit Event -->
+                <a class="btn btn-xs btn-primary" href="{{ url_for('coordinator.edit_event', event_id=event.id) }}" target="_blank">
+                  Edit
+                </a>
+                <!-- Download Registered Students -->
+                <a class="btn btn-xs btn-info" href="{{ url_for('analytics.export_registered_students', event_id=event.id) }}" title="Download registered students (CSV only)">
+                  Students CSV
+                </a>
+                <!-- Download Full Event Data -->
+                <a class="btn btn-xs btn-success" href="{{ url_for('analytics.export_event_data', event_id=event.id) }}" title="Download full event data with results (CSV only)">
+                  Full Data CSV
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% endfor %}
+{% else %}
+  <section class="card">
+    <p class="muted">No events found.</p>
+  </section>
+{% endif %}
+
+<!-- Details Modal -->
+<div id="detailsModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle"></h3>
+      <span class="close" onclick="closeModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Venue:</strong></td>
+          <td id="modalVenue" style="padding: 8px; border-bottom: 1px solid #ddd;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Organizer:</strong></td>
+          <td id="modalOrganizer" style="padding: 8px; border-bottom: 1px solid #ddd;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Department:</strong></td>
+          <td id="modalDepartment" style="padding: 8px; border-bottom: 1px solid #ddd;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Max Participants:</strong></td>
+          <td id="modalMaxParticipants" style="padding: 8px; border-bottom: 1px solid #ddd;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Allow External:</strong></td>
+          <td id="modalAllowExternal" style="padding: 8px; border-bottom: 1px solid #ddd;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Created By:</strong></td>
+          <td id="modalCreator" style="padding: 8px; border-bottom: 1px solid #ddd;"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-light" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+
+  .modal-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+  }
+
+  .modal-body {
+    padding: 15px 0;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+
+  .btn-xs {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+  }
+
+  .btn-info {
+    background-color: #17a2b8;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+  }
+
+  .btn-info:hover {
+    background-color: #138496;
+  }
+</style>
+
+<script>
+  function showEventDetails(eventId, name, venue, organizer, department, maxParticipants, allowExternal, creator) {
+    document.getElementById('modalTitle').textContent = name;
+    document.getElementById('modalVenue').textContent = venue;
+    document.getElementById('modalOrganizer').textContent = organizer;
+    document.getElementById('modalDepartment').textContent = department;
+    document.getElementById('modalMaxParticipants').textContent = maxParticipants ? maxParticipants : 'Unlimited';
+    document.getElementById('modalAllowExternal').textContent = allowExternal;
+    document.getElementById('modalCreator').textContent = creator;
+    document.getElementById('detailsModal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('detailsModal').style.display = 'none';
+  }
+
+  // Close modal when clicking outside of it
+  window.onclick = function(event) {
+    const modal = document.getElementById('detailsModal');
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+</script>
+{% endblock %}

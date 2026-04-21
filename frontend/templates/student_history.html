@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Student participation history{% endblock %}
+{% block content %}
+<h2>Participation history</h2>
+<form method="get" class="card">
+  <label for="roll">Roll number</label>
+  <input type="text" id="roll" name="roll" value="{{ roll }}" placeholder="e.g. 1DA21CS001" required>
+  <button type="submit">Look up</button>
+</form>
+
+{% if roll %}
+  {% if participant %}
+  <p>Showing history for <strong>{{ participant.name }}</strong> ({{ participant.department }})</p>
+  <table class="data">
+    <thead>
+      <tr><th>Event</th><th>Date</th><th>Category</th><th>External?</th></tr>
+    </thead>
+    <tbody>
+      {% for ep, ev in rows %}
+      <tr>
+        <td>{{ ev.name }}</td>
+        <td>{{ ev.date }}</td>
+        <td>{{ ev.category }}</td>
+        <td>{{ 'Yes' if ep.is_external else 'No' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">No registrations found for this roll number.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No participant found with roll number “{{ roll }}”.</p>
+  {% endif %}
+{% endif %}
+{% endblock %}

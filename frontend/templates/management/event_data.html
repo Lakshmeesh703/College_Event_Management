@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}School Event Data{% endblock %}
+{% block page_header %}School Event Data{% endblock %}
+{% block content %}
+<section class="card dashboard-head">
+  <h2 class="plain">Event Data by School</h2>
+  <p class="muted">Select a school to view events and manage data similar to the convener view.</p>
+  <form method="get" action="{{ url_for('management.event_data') }}" class="clean-form" style="margin-top: 0.75rem;">
+    <div class="form-grid" style="align-items: end;">
+      <div>
+        <label for="school">School</label>
+        <select id="school" name="school" required>
+          <option value="">Select School</option>
+          {% for s in schools %}
+          <option value="{{ s }}" {% if selected_school == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <button type="submit">Load Event Data</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+{% if selected_school %}
+<section class="card">
+  <h3 class="plain">{{ selected_school }} Events</h3>
+  {% if events %}
+  <table class="data">
+    <thead>
+      <tr>
+        <th>Name</th><th>Date</th><th>Status</th><th>Category</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in events %}
+      <tr>
+        <td>{{ e.name }}</td>
+        <td>{{ e.date }}</td>
+        <td>
+          {% if e.status == 'Upcoming' %}
+          <span class="badge badge-upcoming">Upcoming</span>
+          {% elif e.status == 'Ongoing' %}
+          <span class="badge badge-ongoing">Ongoing Now</span>
+          {% elif e.status == 'Completed' %}
+          <span class="badge badge-closed">Event Completed</span>
+          {% else %}
+          <span class="badge badge-closed">Registration Closed</span>
+          {% endif %}
+        </td>
+        <td>{{ e.category }}</td>
+        <td>
+          <div class="table-actions">
+            <a href="{{ url_for('coordinator.list_competitions', event_id=e.id) }}">Competitions</a>
+            <a href="{{ url_for('coordinator.event_participants', event_id=e.id) }}">Participants</a>
+            <a href="{{ url_for('coordinator.event_results', event_id=e.id) }}">Results</a>
+            <a href="{{ url_for('analytics.export_registered_students', event_id=e.id) }}">Students CSV</a>
+            <form method="post" action="{{ url_for('coordinator.delete_event', event_id=e.id) }}" style="display:inline;" onsubmit="return confirm('Delete this event and all registrations/results?');">
+              <button type="submit" class="btn-danger">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No events found for this school.</p>
+  {% endif %}
+</section>
+{% endif %}
+{% endblock %}

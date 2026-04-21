@@ -67,4 +67,4 @@ echo "  → Open in browser:  http://127.0.0.1:${PORT}"
 echo "  → Stop server:      Ctrl+C"
 echo ""
 
-exec .venv/bin/python app.py
+exec .venv/bin/python -m backend.start

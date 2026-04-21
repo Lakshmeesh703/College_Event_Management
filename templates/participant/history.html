@@ -6,12 +6,13 @@
 
 <table class="data">
   <thead>
-    <tr><th>Event</th><th>Date</th><th>Status</th><th>Category</th><th>External?</th><th>Result</th></tr>
+    <tr><th>Event</th><th>Competition</th><th>Date</th><th>Status</th><th>Category</th><th>External?</th><th>Result</th></tr>
   </thead>
   <tbody>
-    {% for ep, ev, res in rows %}
+    {% for ep, ev, comp, res in rows %}
     <tr>
       <td>{{ ev.name }}</td>
+      <td>{{ comp.name if comp else '—' }}</td>
       <td>{{ ev.date }}</td>
       <td>{{ ev.status }}</td>
       <td>{{ ev.category }}</td>
@@ -25,7 +26,7 @@
       </td>
     </tr>
     {% else %}
-    <tr><td colspan="6">You have not registered for any events yet.</td></tr>
+    <tr><td colspan="7">You have not registered for any competitions yet.</td></tr>
     {% endfor %}
   </tbody>
 </table>

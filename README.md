@@ -49,7 +49,7 @@ source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-**2. Configure PostgreSQL / Supabase**. Create a file named `.env` next to `app.py` with:
+**2. Configure PostgreSQL / Supabase**. Create a file named `.env` next to `backend/app.py` with:
 
 ```env
 DATABASE_URL=postgresql://USER:PASSWORD@HOST:5432/DBNAME
@@ -63,7 +63,7 @@ Or set all `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`, and `DB_NAME`.
 ```bash
 cd DAV_Mini_Project
 source .venv/bin/activate
-python app.py
+python -m backend.start
 ```
 
 Open **http://127.0.0.1:5000**.
@@ -78,17 +78,21 @@ Three roles control what each logged-in user can do. Passwords are stored with *
 
 | Role | What they can do |
 |------|------------------|
-| **participant** | Self **sign up** (`/auth/signup`). Browse events, **register** for events, view **own** participation history. |
-| **coordinator** | **Log in** only (no public signup). **Create / edit / delete** events they own; view **participants** on those events; **enter results**. Legacy events with no owner appear under “Legacy events” until a coordinator saves them (claims). |
-| **management** | **Admin + analytics**. Can create coordinator/management accounts via OTP verification, view separate staff data sections, delete staff accounts safely, and use `/analytics/dashboard`. Cannot change participant registrations/results directly. |
+| **student** | Self **sign up** (`/auth/signup`). Browse events, **register** for events, view **own** participation history. |
+| **coordinator** | **Log in** only (no public signup). **Create / edit / delete** events they own; view **participants** on those events; **enter results**. Legacy events with no owner appear under "Legacy events" until a coordinator saves them (claims). |
+| **convener** | **School-scoped coordinator**: **Log in** only. **Create / edit / delete** ALL events within their assigned school; view **participants** and **enter results**. Can **create and manage coordinators** for their school. Sees analytics filtered to events in their school only. |
+| **admin** | **Account management & audit**: Create/manage convener, coordinator, and management accounts via OTP. View separate staff data sections. Delete staff accounts safely. Access to `/analytics` with global visibility and `/analytics/events-by-school` for event-wise data organization. |
+| **management** | **Analytics & insights**: View `/analytics/dashboard` with summary and key insights. Cannot create accounts. Cannot change participant registrations/results directly.
 
 **Main routes**
 
 - `/auth/login`, `/auth/logout`, `/auth/signup` (participants only), `/auth/access-denied` (403 page).
 - `/participant/dashboard`, `/participant/events`, `/participant/history`, POST `/participant/events/<id>/register`.
 - `/coordinator/dashboard`, `/coordinator/events/add`, edit/delete, participants list, results per event.
-- `/management/dashboard` (admin panel), `/management/accounts/coordinator/new`, `/management/accounts/management/new`, `/management/accounts/verify-otp`, delete routes.
-- `/analytics/*` (compact dashboard + charts): **management** role only.
+- `/management/dashboard` (admin panel for account creation), `/management/accounts/coordinator/new`, `/management/accounts/convener/new`, `/management/accounts/management/new`, `/management/accounts/verify-otp`, delete routes.
+- `/analytics/dashboard` — role-aware analytics (management=summary, admin/convener/coordinator=detailed).
+- `/analytics/events-by-school` — admin-only: all events organized by school with participant counts.
+- `/analytics/export.csv`, `/analytics/export-events.csv`, `/analytics/export-report` — scoped CSV and report exports by role.
 
 **Code layout**
 
@@ -99,31 +103,56 @@ Three roles control what each logged-in user can do. Passwords are stored with *
 
 ### Management admin bootstrap account
 
-On startup, the app ensures a default management login exists (unless overridden by env vars):
+On startup, the app ensures a default **admin** login exists (unless overridden by env vars):
 
 - Email: `cumanagement522@gmail.com`
 - Password: `Chinnu@08418`
+- Role: `admin` (create and manage all staff accounts)
 
-Optional overrides:
+Optional environment variable overrides:
 
 ```bash
 export ADMIN_EMAIL=your_admin@gmail.com
 export ADMIN_PASSWORD=your_admin_password
-export ADMIN_NAME="CU Management Admin"
+export ADMIN_NAME="CU Admin"
 ```
 
 ### Staff account creation rules
 
-- Staff creation is done by management via OTP.
-- OTP is sent to the entered Gmail account.
-- Required fields for coordinator/management profile:
+- **Coordinator / Convener**: Require school assignment during creation (admin selects school).
+- **Convener**: Can create and manage coordinators for their assigned school.
+- Admin creates staff via OTP sent to their Gmail (verification).
+- Required fields:
     - Full name
-    - Gmail
+    - Gmail (OTP target)
     - Phone number
     - University
     - Position
-    - University mail
-- University mail must end with: `@chanakyauniversity.edu.in`
+    - University mail (must end with: `@chanakyauniversity.edu.in`)
+    - School (for coordinators and conveners)
+
+---
+
+### Database: Supabase/PostgreSQL ONLY
+
+**⚠️ Important:** This application **requires PostgreSQL (via Supabase)** and does **NOT support local SQLite**.
+
+On startup, if `DATABASE_URL` or `DB_*` environment variables are not set, the app will **fail immediately** with an error message.
+
+**For local development:**
+
+1. Create a Supabase project (free tier available at [supabase.com](https://supabase.com)).
+2. Copy the PostgreSQL connection string.
+3. Set in `.env`:
+   ```env
+   DATABASE_URL=postgresql://user:password@host:5432/dbname
+   ```
+
+**For production (Railway, Render, or Fly):**
+
+1. Provision a managed PostgreSQL instance.
+2. Set the full `DATABASE_URL` environment variable on the host.
+3. The app will automatically create/migrate schema on startup.
 
 **Demo accounts** (after seeding — see below)
 
@@ -223,11 +252,11 @@ export SECRET_KEY=use-a-long-random-string
 
 ### 4. Create tables and run
 
-Flask-SQLAlchemy creates tables on startup (`db.create_all()` in `app.py`).
+Flask-SQLAlchemy creates tables on startup (`db.create_all()` in `backend/app.py`).
 
 ```bash
 source .venv/bin/activate   # if not already active
-export FLASK_APP=app.py
+export FLASK_APP=backend.app
 flask run
 ```
 
@@ -235,18 +264,18 @@ Or:
 
 ```bash
 source .venv/bin/activate
-python app.py
+python -m backend.start
 ```
 
 Open `http://127.0.0.1:5000`.
 
-`run_local.sh` auto-cleans old local `python app.py` processes on port 5000 before starting, so repeated launches are predictable.
+`run_local.sh` auto-cleans old local backend start processes on port 5000 before starting, so repeated launches are predictable.
 
 ### Troubleshooting
 
 | Error | What to do |
 |--------|------------|
-| `ModuleNotFoundError: No module named 'flask'` | You did not install dependencies or you used `python3` **outside** the venv. Run `source .venv/bin/activate`, then `pip install -r requirements.txt`, then `python app.py`. |
+| `ModuleNotFoundError: No module named 'flask'` | You did not install dependencies or you used `python3` **outside** the venv. Run `source .venv/bin/activate`, then `pip install -r requirements.txt`, then `python -m backend.start`. |
 | `ensurepip is not available` | Install `python3-venv` (see Ubuntu steps in section 2). |
 | `externally-managed-environment` (pip) | Do not use `pip install` on system Python on newer Ubuntu. Use a **virtual environment** as in section 2. |
 | `fe_sendauth: no password supplied` | PostgreSQL is reachable but the app sent an **empty password**. Set **`DB_PASSWORD`** in `.env` to your PostgreSQL user’s password, or use a full **`DATABASE_URL`** that includes the password. Create the DB if needed: `createdb college_events`. |
@@ -256,7 +285,7 @@ Open `http://127.0.0.1:5000`.
 ### 5. Optional sample data
 
 ```bash
-python scripts/seed_data.py
+python -m backend.scripts.seed_data
 ```
 
 Re-running on the same database will try to insert duplicate rows; use a fresh database or truncate tables for a clean demo.
@@ -264,7 +293,7 @@ Re-running on the same database will try to insert duplicate rows; use a fresh d
 ### 6. Data processing report (CLI)
 
 ```bash
-python scripts/data_processing.py
+python -m backend.scripts.data_processing
 ```
 
 Loads tables with Pandas, applies the same standardization helpers used on form submit, and prints aggregates.
@@ -272,7 +301,7 @@ Loads tables with Pandas, applies the same standardization helpers used on form 
 ## Production-style run (Gunicorn)
 
 ```bash
-gunicorn --bind 0.0.0.0:5000 app:app
+gunicorn --bind 0.0.0.0:5000 backend.app:app
 ```
 
 `Procfile` is included for platforms that detect it (e.g. Render).
@@ -281,22 +310,22 @@ gunicorn --bind 0.0.0.0:5000 app:app
 
 | Path | Purpose |
 |------|--------|
-| `app.py` | Creates the Flask app, loads `.env`, registers blueprints, runs `db.create_all()`, injects `current_user` into templates. |
-| `auth_decorators.py` | `login_required`, `roles_required(...)` for route protection. |
-| `config.py` | Reads `DATABASE_URL` or `DB_*` from the environment; normalizes `postgres://` URLs. |
-| `models.py` | `User` (RBAC), `Event` (+ `created_by_id`), `Participant` (+ `user_id`), `EventParticipation`, `Result`. |
-| `routes/auth.py` | Login, logout, participant signup, access denied page. |
-| `routes/participant.py` | Participant dashboard, event list, register, history. |
-| `routes/coordinator.py` | Event CRUD, participants list, results (own / legacy events). |
-| `routes/management.py` | Management admin dashboard, OTP staff account creation, staff profile sections, safe account deletion. |
-| `routes/main.py` | Public home, calendar, results lookup, legacy URL redirects, optional roll lookup. |
-| `routes/analytics.py` | **Management-only** compact dashboard with KPI cards, school/student analytics tables, and chart endpoints. |
-| `scripts/data_processing.py` | Pandas cleaning, standardization maps, derived metrics (repeatable). |
-| `scripts/seed_data.py` | Demo users (all roles) + sample events / registrations / results. |
+| `backend/app.py` | Creates the Flask app, loads `.env`, registers blueprints, runs `db.create_all()`, injects `current_user` into templates. |
+| `backend/auth_decorators.py` | `login_required`, `roles_required(...)` for route protection. |
+| `backend/config.py` | Reads `DATABASE_URL` or `DB_*` from the environment; normalizes `postgres://` URLs. |
+| `backend/models.py` | `User` (RBAC), `Event` (+ `created_by_id`), `Participant` (+ `user_id`), `EventParticipation`, `Result`. |
+| `backend/routes/auth.py` | Login, logout, participant signup, access denied page. |
+| `backend/routes/participant.py` | Participant dashboard, event list, register, history. |
+| `backend/routes/coordinator.py` | Event CRUD, participants list, results (own / legacy events). |
+| `backend/routes/management.py` | Management admin dashboard, OTP staff account creation, staff profile sections, safe account deletion. |
+| `backend/routes/main.py` | Public home, calendar, results lookup, legacy URL redirects, optional roll lookup. |
+| `backend/routes/analytics.py` | **Management-only** compact dashboard with KPI cards, school/student analytics tables, and chart endpoints. |
+| `backend/scripts/data_processing.py` | Pandas cleaning, standardization maps, derived metrics (repeatable). |
+| `backend/scripts/seed_data.py` | Demo users (all roles) + sample events / registrations / results. |
 | `database/schema.sql` | Plain SQL DDL for submissions / DBA review. |
 | `database/analytics_queries.sql` | 5+ analytical queries required for the course. |
-| `templates/` | Jinja HTML including `auth/`, `participant/`, `coordinator/`. |
-| `static/css/style.css` | Layout, colour theme, nav user chip, danger button. |
+| `frontend/templates/` | Jinja HTML including `auth/`, `participant/`, `coordinator/`. |
+| `frontend/static/css/style.css` | Layout, colour theme, nav user chip, danger button. |
 | `render.yaml` | Render deployment manifest with Gunicorn startup and managed PostgreSQL. |
 | `docs/deployment.md` | Deployment checklist and environment variable setup. |
 | `docs/final_report.md` | Coursework-style summary of the system, data model, and delivery. |

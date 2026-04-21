@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block title %}Participants — {{ event.name }}{% endblock %}
+{% block content %}
+<h2>Participants</h2>
+<p class="muted">Event: <strong>{{ event.name }}</strong> · {{ event.date }}</p>
+
+<section class="card" style="margin-bottom: 1rem;">
+  <h3 class="plain">Competitions</h3>
+  <p class="muted">Add sub-events one by one. Team competitions can enforce minimum and maximum group sizes.</p>
+  {% if competitions %}
+  <table class="data" style="margin-bottom: 1rem;">
+    <thead>
+      <tr>
+        <th>Name</th><th>Type</th><th>Date</th><th>Max Entries</th><th>Team Size</th><th>Description</th><th>Rules</th><th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in competitions %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td>{% if c.is_team_event %}<span class="inline-pill">Team</span>{% else %}Individual{% endif %}</td>
+        <td>{{ c.date }}</td>
+        <td>{{ c.max_participants or '—' }}</td>
+        <td>{% if c.is_team_event %}{{ c.min_team_size or '—' }} - {{ c.max_team_size or '—' }}{% else %}—{% endif %}</td>
+        <td>{{ c.description or '—' }}</td>
+        <td>{{ c.rules or '—' }}</td>
+        <td>
+          <a class="btn btn-light" href="{{ url_for('coordinator.export_competition_students_csv', event_id=event.id, competition_id=c.id) }}">Export CSV</a>
+          <form method="post" action="{{ url_for('coordinator.delete_competition', event_id=event.id, competition_id=c.id) }}" onsubmit="return confirm('Delete this competition?');">
+            <button type="submit" class="btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No competitions added for this event yet.</p>
+  {% endif %}
+
+  <h4 class="plain">Add Competition</h4>
+  <form method="post" action="{{ url_for('coordinator.create_competition', event_id=event.id) }}" class="clean-form">
+    <div class="form-grid">
+      <div>
+        <label for="name">Competition name</label>
+        <input id="name" name="name" type="text" required minlength="2" maxlength="200">
+      </div>
+      <div>
+        <label for="date">Date</label>
+        <input id="date" name="date" type="date" required>
+      </div>
+      <div>
+        <label for="max_participants">Max participants</label>
+        <input id="max_participants" name="max_participants" type="number" min="1" max="50000" placeholder="Optional">
+      </div>
+      <div>
+        <label for="is_team_event">Competition type</label>
+        <select id="is_team_event" name="is_team_event">
+          <option value="">Individual</option>
+          <option value="on">Team / group</option>
+        </select>
+      </div>
+      <div style="grid-column:1 / -1;">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="2" maxlength="4000" placeholder="Optional"></textarea>
+      </div>
+      <div style="grid-column:1 / -1;">
+        <label for="rules">Rules</label>
+        <textarea id="rules" name="rules" rows="2" maxlength="4000" placeholder="Optional"></textarea>
+      </div>
+    </div>
+
+    <div class="team-note" id="team-settings" style="display:none; margin-top: 0.3rem;">
+      <strong>Team settings</strong>
+      <p class="muted" style="margin: 0.35rem 0 0;">Set the minimum and maximum number of members for this competition.</p>
+      <div class="form-grid" style="margin-top: 0.7rem;">
+        <div>
+          <label for="min_team_size">Minimum team size</label>
+          <input id="min_team_size" name="min_team_size" type="number" min="1" max="100" placeholder="Example: 2">
+        </div>
+        <div>
+          <label for="max_team_size">Maximum team size</label>
+          <input id="max_team_size" name="max_team_size" type="number" min="1" max="100" placeholder="Example: 4">
+        </div>
+      </div>
+    </div>
+
+    <button type="submit">Add Competition</button>
+  </form>
+</section>
+
+<table class="data">
+  <thead>
+    <tr>
+      <th>Name / Team</th><th>Competition</th><th>Roll</th><th>Department/University</th><th>Email</th><th>WhatsApp</th><th>Year</th><th>External</th><th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if rows %}
+      {% for row in rows %}
+        {% if row.type == 'team' %}
+          {% set team = row.team %}
+          {% set participation = row.participation %}
+          <tr style="background-color: rgba(100,150,255,0.08); font-weight: 600; border-top: 2px solid rgba(100,150,255,0.3);">
+            <td><strong>👥 {{ team.name }}</strong><span class="muted" style="font-weight: normal;"> ({{ team.members|length }} members)</span></td>
+            <td>{{ team.competition.name if team.competition else '—' }}</td>
+            <td colspan="7">
+              <strong>Leader:</strong> {{ team.captain.name if team.captain else 'N/A' }}
+              {% if team.captain %}&nbsp;<a href="{{ url_for('coordinator.edit_participant', event_id=event.id, participant_id=team.captain.id) }}" style="margin-left: 0.5rem; font-size: 0.9em;">[Edit]</a>{% endif %}
+            </td>
+          </tr>
+          {% if team.members %}
+            {% for member in team.members %}
+            <tr style="background-color: rgba(150,180,255,0.03);">
+              <td style="padding-left: 2rem;">↳ <strong>{{ member.name }}</strong></td>
+              <td style="color: #999;">—</td>
+              <td>{{ member.roll_number or '—' }}</td>
+              <td>{{ member.department or member.organization or '—' }}</td>
+              <td>{{ member.email or '—' }}</td>
+              <td>{{ member.whatsapp_number or '—' }}</td>
+              <td>—</td>
+              <td>{{ 'Yes' if participation.is_external else 'No' }}</td>
+              <td>—</td>
+            </tr>
+            {% endfor %}
+          {% else %}
+            <tr style="background-color: rgba(150,180,255,0.03);">
+              <td colspan="9" style="padding-left: 2rem; color: #999;"><em>No members registered</em></td>
+            </tr>
+          {% endif %}
+        {% else %}
+          {% set participant = row.participant %}
+          {% set participation = row.participation %}
+          <tr>
+            <td>{{ participant.name }}</td>
+            <td>{{ participation.competition.name if participation.competition else '—' }}</td>
+            <td>{{ participant.roll_number or '—' }}</td>
+            <td>{{ participant.department or participant.organization or '—' }}</td>
+            <td>{{ participant.user.email if participant.user else '—' }}</td>
+            <td>{{ participant.whatsapp_number or '—' }}</td>
+            <td>{{ participant.year or '—' }}</td>
+            <td>{{ 'Yes' if participation.is_external else 'No' }}</td>
+            <td><a href="{{ url_for('coordinator.edit_participant', event_id=event.id, participant_id=participant.id) }}">Edit</a></td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+    <tr><td colspan="9">No competition registrations yet.</td></tr>
+    {% endif %}
+  </tbody>
+</table>
+<p><a href="{{ url_for('coordinator.event_results', event_id=event.id) }}">Enter results</a> · <a href="{{ url_for('coordinator.dashboard') }}">Back</a></p>
+<script>
+  (() => {
+    const toggle = document.getElementById('is_team_event');
+    const panel = document.getElementById('team-settings');
+    if (!toggle || !panel) return;
+    const sync = () => {
+      panel.style.display = toggle.value === 'on' ? 'block' : 'none';
+    };
+    toggle.addEventListener('change', sync);
+    sync();
+  })();
+</script>
+{% endblock %}

@@ -67,6 +67,7 @@
       <th>School</th>
       <th>Participants</th>
       <th>Venue</th>
+      <th>Competitions</th>
       <th></th>
     </tr>
   </thead>
@@ -89,12 +90,34 @@
       <td>{{ can_register_map[e.id].count }} / {{ e.max_participants or '∞' }}</td>
       <td>{{ e.venue }}</td>
       <td>
+        {% set comps = competitions_map.get(e.id, []) %}
+        {% if comps %}
+          {% for c in comps %}
+          <div style="margin-bottom:0.45rem; border:1px solid #e5e7eb; border-radius:8px; padding:0.45rem;">
+            <div><strong>{{ c.name }}</strong> · {{ c.date }}</div>
+            <div class="muted" style="font-size:0.85rem;">
+              {{ can_register_comp_map[c.id].count }} / {{ can_register_comp_map[c.id].cap or '∞' }}
+            </div>
+            {% if c.id in joined_competition_ids %}
+              <span class="muted">Registered</span>
+            {% elif can_register_comp_map[c.id].allowed %}
+              <form method="post" action="{{ url_for('participant.register_for_competition', event_id=e.id, competition_id=c.id) }}" style="display:inline;">
+                <button type="submit">Register Competition</button>
+              </form>
+            {% else %}
+              <span class="muted">{{ can_register_comp_map[c.id].reason }}</span>
+            {% endif %}
+          </div>
+          {% endfor %}
+        {% else %}
+          <span class="muted">No competitions available.</span>
+        {% endif %}
+      </td>
+      <td>
         {% if e.id in joined_ids %}
-          <span class="muted">Registered</span>
-        {% elif can_register_map[e.id].allowed %}
-          <form method="post" action="{{ url_for('participant.register_for_event', event_id=e.id) }}" style="display:inline;">
-            <button type="submit">Register</button>
-          </form>
+          <span class="muted">Registered for one/more competitions</span>
+        {% elif competitions_map.get(e.id) %}
+          <span class="muted">Choose a competition to register.</span>
         {% else %}
           <span class="muted">Registration Closed or Results Announced</span>
         {% endif %}

@@ -14,7 +14,7 @@ This project is ready to deploy on Render or a similar Python hosting platform.
 2. Create a new Render Web Service from the repository.
 3. Use the provided `render.yaml` or set:
    - Build command: `pip install -r requirements.txt`
-   - Start command: `gunicorn --bind 0.0.0.0:$PORT app:app`
+   - Start command: `gunicorn --bind 0.0.0.0:$PORT backend.app:app`
 4. Provision PostgreSQL through Render or another managed database provider.
 5. Set the following environment variables:
    - `SECRET_KEY`

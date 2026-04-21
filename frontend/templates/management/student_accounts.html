@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}Student Accounts{% endblock %}
+{% block content %}
+<section class="card dashboard-head">
+  <h2 class="plain">Student Accounts</h2>
+  <p class="muted">All created student accounts and their profile details.</p>
+  <div class="action-row">
+    <a class="btn btn-light" href="{{ url_for('management.dashboard') }}">Back to Admin Dashboard</a>
+    <a class="btn" href="{{ url_for('management.export_student_accounts_csv', q=filters.q, department=filters.department, year=filters.year, external=filters.external, status=filters.status) }}">Export Student Accounts CSV</a>
+  </div>
+</section>
+
+<section class="card">
+  <form method="get" class="form-grid" style="margin-bottom: 16px;">
+    <div>
+      <label for="q">Search</label>
+      <input id="q" name="q" type="text" placeholder="Name, email, roll, department" value="{{ filters.q }}">
+    </div>
+    <div>
+      <label for="department">Department</label>
+      <select id="department" name="department">
+        <option value="">All departments</option>
+        {% for dept in departments %}
+        <option value="{{ dept }}" {% if filters.department == dept %}selected{% endif %}>{{ dept }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="year">Year</label>
+      <select id="year" name="year">
+        <option value="">All years</option>
+        {% for yr in [1, 2, 3, 4, 5] %}
+        <option value="{{ yr }}" {% if filters.year == (yr|string) %}selected{% endif %}>{{ yr }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="external">External</label>
+      <select id="external" name="external">
+        <option value="">All</option>
+        <option value="yes" {% if filters.external == 'yes' %}selected{% endif %}>Yes</option>
+        <option value="no" {% if filters.external == 'no' %}selected{% endif %}>No</option>
+      </select>
+    </div>
+    <div>
+      <label for="status">Status</label>
+      <select id="status" name="status">
+        <option value="active" {% if filters.status == 'active' %}selected{% endif %}>Active</option>
+        <option value="inactive" {% if filters.status == 'inactive' %}selected{% endif %}>Inactive</option>
+        <option value="all" {% if filters.status == 'all' %}selected{% endif %}>All</option>
+      </select>
+    </div>
+    <div style="display: flex; align-items: flex-end; gap: 8px;">
+      <button type="submit">Apply Filters</button>
+      <a class="btn btn-light" href="{{ url_for('management.student_accounts') }}">Reset</a>
+    </div>
+  </form>
+
+  {% if student_rows %}
+    <form method="post" action="{{ url_for('management.bulk_student_accounts_action') }}" onsubmit="return confirmBulkAction();">
+      <div class="action-row" style="margin-bottom: 12px;">
+        <select name="bulk_action" id="bulk_action" required>
+          <option value="">Bulk Action</option>
+          <option value="activate">Activate Selected</option>
+          <option value="deactivate">Deactivate Selected</option>
+          <option value="delete">Delete Selected</option>
+        </select>
+        <button type="submit" class="btn">Apply</button>
+      </div>
+
+    <div class="table-wrap management-table-wrap">
+      <table class="data management-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="select_all" onclick="toggleSelectAll(this)"></th>
+            <th>Name</th>
+            <th>Gmail</th>
+            <th>Roll Number</th>
+            <th>Department</th>
+            <th>Organization</th>
+            <th>WhatsApp</th>
+            <th>University Mail</th>
+            <th>Year</th>
+            <th>External</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user, profile in student_rows %}
+          <tr>
+            <td><input type="checkbox" name="selected_user_ids" value="{{ user.id }}" class="student-select"></td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ profile.roll_number or 'N/A' }}</td>
+            <td>{{ profile.department or 'N/A' }}</td>
+            <td>{{ profile.organization or 'N/A' }}</td>
+            <td>{{ profile.whatsapp_number or 'N/A' }}</td>
+            <td>{{ profile.university_mail or 'N/A' }}</td>
+            <td>{{ profile.year or 'N/A' }}</td>
+            <td>{{ 'Yes' if user.is_external_user else 'No' }}</td>
+            <td>{{ 'Active' if user.is_active else 'Inactive' }}</td>
+            <td>{{ user.created_at.strftime('%Y-%m-%d %H:%M') if user.created_at else 'N/A' }}</td>
+            <td>
+              <button type="button" class="btn-danger" onclick="submitSingleDelete({{ user.id }})">Delete</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    </form>
+  {% else %}
+    <p class="muted">No student accounts found.</p>
+  {% endif %}
+</section>
+
+<form id="single_delete_form" method="post" style="display:none;"></form>
+
+<script>
+  function toggleSelectAll(source) {
+    const checkboxes = document.querySelectorAll('.student-select');
+    for (const cb of checkboxes) {
+      cb.checked = source.checked;
+    }
+  }
+
+  function confirmBulkAction() {
+    const action = document.getElementById('bulk_action').value;
+    const selected = document.querySelectorAll('.student-select:checked').length;
+    if (!selected) {
+      alert('Please select at least one student account.');
+      return false;
+    }
+    if (!action) {
+      alert('Please choose a bulk action.');
+      return false;
+    }
+    if (action === 'delete') {
+      return confirm('Delete selected student accounts? This will remove participation and result data for those students.');
+    }
+    if (action === 'deactivate') {
+      return confirm('Deactivate selected student accounts?');
+    }
+    if (action === 'activate') {
+      return confirm('Activate selected student accounts?');
+    }
+    return true;
+  }
+
+  function submitSingleDelete(userId) {
+    if (!confirm('Delete this student account? This will remove participation and result data for this student.')) {
+      return;
+    }
+    const form = document.getElementById('single_delete_form');
+    form.action = '/management/accounts/student/' + userId + '/delete';
+    form.submit();
+  }
+</script>
+{% endblock %}

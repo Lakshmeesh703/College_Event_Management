@@ -1,72 +1,491 @@
-2026-04-15 21:59:57,199 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:00:13,558 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:00:37,146 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:00:49,602 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:01:06,807 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:05:20,061 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:06:51,348 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:11:06,649 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:11:57,082 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:14:08,793 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:21:08,855 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:33:21,061 INFO AUDIT action=password_reset user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:33:36,778 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:33:52,392 INFO AUDIT action=logout user_id=6 role=student details=None
-2026-04-15 22:34:41,338 INFO AUDIT action=login user_id=2 role=coordinator details=email=coordinator@demo.local
-2026-04-15 22:42:34,716 INFO AUDIT action=logout user_id=2 role=coordinator details=None
-2026-04-15 22:43:47,842 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 22:44:01,350 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 23:09:53,615 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 23:11:10,462 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeeshshet744@gmail.com
-2026-04-15 23:13:48,973 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 23:24:31,711 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 23:26:04,685 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-15 23:26:25,339 INFO AUDIT action=login_failed user_id=None role=None details=login_id=Lakshmeesh Shet
-2026-04-15 23:27:48,946 INFO AUDIT action=login_failed user_id=None role=None details=email=lakshmeesh shet
-2026-04-15 23:28:46,420 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 23:29:12,360 INFO AUDIT action=login_failed user_id=None role=None details=login_id=Lakshmeesh Shet
-2026-04-15 23:29:49,909 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-15 23:32:23,524 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 23:33:37,705 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-15 23:34:12,537 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-15 23:34:34,062 INFO AUDIT action=login_failed user_id=None role=None details=login_id=Lakshmeesh Shet
-2026-04-15 23:37:39,102 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 23:39:15,942 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-15 23:39:27,404 INFO AUDIT action=logout user_id=6 role=student details=None
-2026-04-15 23:39:37,206 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-17 09:58:35,033 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-17 09:58:53,428 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-17 09:59:08,483 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-17 11:25:31,369 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-17 11:31:19,805 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-17 11:33:42,338 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-17 11:37:18,515 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-17 11:38:02,989 INFO AUDIT action=password_reset user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-17 11:38:12,091 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-17 11:38:42,387 INFO AUDIT action=logout user_id=6 role=student details=None
-2026-04-17 11:41:02,660 INFO AUDIT action=signup user_id=9 role=student details=email=g9035694@gmail.com
-2026-04-17 20:14:50,209 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-17 20:15:00,378 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-17 20:15:15,507 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
-2026-04-17 20:18:03,916 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-17 20:25:27,080 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-17 22:23:14,070 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
-2026-04-17 22:26:51,646 INFO AUDIT action=logout user_id=6 role=student details=None
-2026-04-17 22:27:07,865 INFO AUDIT action=login user_id=9 role=student details=email=g9035694@gmail.com
-2026-04-17 22:27:23,987 INFO AUDIT action=logout user_id=9 role=student details=None
-2026-04-17 23:16:45,328 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-17 23:18:00,264 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-17 23:26:44,249 INFO AUDIT action=staff_account_created user_id=10 role=management details=created_user_id=11 created_role=coordinator email=cricketfaan744@gmail.com
-2026-04-17 23:29:03,329 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-17 23:29:39,978 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-17 23:31:52,687 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-17 23:42:17,977 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-17 23:54:38,989 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-18 00:26:02,799 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-18 00:30:56,650 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-18 00:33:58,187 INFO AUDIT action=login user_id=10 role=management details=email=cumanagement522@gmail.com
-2026-04-18 23:29:48,832 INFO AUDIT action=login user_id=11 role=coordinator details=email=cricketfaan744@gmail.com
-2026-04-18 23:31:05,140 INFO AUDIT action=logout user_id=11 role=coordinator details=None
-2026-04-18 23:31:09,349 INFO AUDIT action=login user_id=9 role=student details=email=g9035694@gmail.com
-2026-04-18 23:31:13,457 INFO AUDIT action=logout user_id=9 role=student details=None
-2026-04-18 23:31:27,084 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-21 00:20:50,045 INFO AUDIT action=login user_id=18 role=coordinator details=email=cricketfaan744@gmail.com
+2026-04-21 00:20:57,509 INFO AUDIT action=logout user_id=18 role=coordinator details=None
+2026-04-21 00:31:48,534 INFO AUDIT action=login user_id=18 role=coordinator details=email=cricketfaan744@gmail.com
+2026-04-21 09:50:51,163 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 09:51:25,179 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 09:51:29,733 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 09:53:11,540 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 09:53:27,066 INFO AUDIT action=login_failed user_id=None role=None details=login_id=Manoj AB
+2026-04-21 09:53:36,392 INFO AUDIT action=login_failed user_id=None role=None details=login_id=manojab691@gmail.com
+2026-04-21 09:54:04,064 INFO AUDIT action=login_failed user_id=None role=None details=login_id=cricketfaan744@gmail.com
+2026-04-21 09:54:21,968 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 09:55:34,025 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 09:55:38,454 INFO AUDIT action=login user_id=16 role=coordinator details=email=akashsh000717@gmail.com
+2026-04-21 09:57:37,795 INFO AUDIT action=logout user_id=16 role=coordinator details=None
+2026-04-21 09:57:45,298 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-21 09:58:09,573 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-21 09:58:46,989 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 09:59:39,298 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 09:59:45,592 INFO AUDIT action=login user_id=16 role=coordinator details=email=akashsh000717@gmail.com
+2026-04-21 09:59:54,058 INFO AUDIT action=logout user_id=16 role=coordinator details=None
+2026-04-21 10:03:26,103 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 10:18:22,187 ERROR Exception on /management/dashboard [GET]
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/auth_decorators.py", line 68, in wrapped
+    return view_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/routes/management.py", line 363, in dashboard
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/management/dashboard.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/base.html", line 93, in template
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.TemplateAssertionError: block 'content' defined twice
+2026-04-21 10:20:28,389 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 10:31:10,739 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 10:32:46,203 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 10:32:51,459 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 10:33:55,358 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 10:34:42,624 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 10:34:50,115 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 10:34:59,926 INFO AUDIT action=login_failed user_id=None role=None details=login_id=manojab691@gmail.com
+2026-04-21 10:35:05,237 INFO AUDIT action=login user_id=16 role=coordinator details=email=akashsh000717@gmail.com
+2026-04-21 10:35:10,207 INFO AUDIT action=logout user_id=16 role=coordinator details=None
+2026-04-21 10:35:16,412 INFO AUDIT action=login user_id=3 role=management details=email=management@demo.local
+2026-04-21 10:36:11,954 INFO AUDIT action=logout user_id=3 role=management details=None
+2026-04-21 11:00:57,948 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 11:01:03,031 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 11:07:51,347 INFO AUDIT action=login user_id=3 role=management details=email=management@demo.local
+2026-04-21 11:08:14,473 INFO AUDIT action=logout user_id=3 role=management details=None
+2026-04-21 11:08:18,798 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 11:25:28,912 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 11:25:37,234 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 11:26:09,158 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 11:26:14,002 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 11:27:40,302 INFO AUDIT action=competition_created user_id=13 role=coordinator details=event_id=6 competition_id=11
+2026-04-21 11:27:57,202 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 11:28:02,538 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-21 11:36:20,888 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-21 11:36:25,888 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-21 11:38:47,252 INFO AUDIT action=competition_registration user_id=6 role=student details=event_id=6 competition_id=11 team_id=1 team_name=Bhatah
+2026-04-21 11:38:47,968 INFO AUDIT action=notification_simulated user_id=6 role=student details=registration_confirmation event_id=6 competition_id=11 team_id=1
+2026-04-21 11:38:55,141 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-21 11:39:03,902 INFO AUDIT action=login_failed user_id=None role=None details=login_id=Manoj AB
+2026-04-21 11:39:09,269 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 11:41:12,226 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 11:41:20,145 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 12:44:09,178 ERROR Failed to persist activity log: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: INSERT INTO activity_logs (action, user_id, role, details, created_at) VALUES (%(action)s, %(user_id)s, %(role)s, %(details)s, %(created_at)s) RETURNING activity_logs.id]
+[parameters: {'action': 'logout', 'user_id': 10, 'role': 'admin', 'details': '', 'created_at': datetime.datetime(2026, 4, 21, 7, 14, 9, 118057)}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/services/activity_logger.py", line 16, in log_action
+    db.session.commit()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2030, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1311, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1286, in _prepare_impl
+    self.session.flush()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 4331, in flush
+    self._flush(objects)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 4466, in _flush
+    with util.safe_reraise():
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 4427, in _flush
+    flush_context.execute()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: INSERT INTO activity_logs (action, user_id, role, details, created_at) VALUES (%(action)s, %(user_id)s, %(role)s, %(details)s, %(created_at)s) RETURNING activity_logs.id]
+[parameters: {'action': 'logout', 'user_id': 10, 'role': 'admin', 'details': '', 'created_at': datetime.datetime(2026, 4, 21, 7, 14, 9, 118057)}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-21 12:44:09,185 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 12:44:30,182 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 12:44:34,191 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 12:44:39,314 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 12:44:44,258 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 12:44:58,718 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 12:47:34,604 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 12:47:38,843 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 12:47:44,476 ERROR Exception on /coordinator/events/6/competitions [GET]
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/auth_decorators.py", line 68, in wrapped
+    return view_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/routes/coordinator.py", line 457, in list_competitions
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/base.html", line 14, in top-level template code
+    {% set _page_content %}{% block content %}{% endblock %}{% endset %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 137, in block 'content'
+    <td>{{ participant.name }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'sqlalchemy.engine.row.Row object' has no attribute 'participant'
+2026-04-21 12:47:49,887 ERROR Exception on /coordinator/events/9/competitions [GET]
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/auth_decorators.py", line 68, in wrapped
+    return view_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/routes/coordinator.py", line 457, in list_competitions
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/base.html", line 14, in top-level template code
+    {% set _page_content %}{% block content %}{% endblock %}{% endset %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 137, in block 'content'
+    <td>{{ participant.name }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'sqlalchemy.engine.row.Row object' has no attribute 'participant'
+2026-04-21 16:55:58,416 INFO AUDIT action=login user_id=18 role=coordinator details=email=cricketfaan744@gmail.com
+2026-04-21 16:57:00,623 INFO AUDIT action=logout user_id=18 role=coordinator details=None
+2026-04-21 16:57:15,728 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 16:57:36,119 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 16:57:47,289 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 16:57:54,168 ERROR Exception on /coordinator/events/6/competitions [GET]
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/auth_decorators.py", line 68, in wrapped
+    return view_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/routes/coordinator.py", line 457, in list_competitions
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/base.html", line 14, in top-level template code
+    {% set _page_content %}{% block content %}{% endblock %}{% endset %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 137, in block 'content'
+    <td>{{ participant.name }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'sqlalchemy.engine.row.Row object' has no attribute 'participant'
+2026-04-21 17:00:45,201 ERROR Exception on /coordinator/events/6/competitions [GET]
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/auth_decorators.py", line 68, in wrapped
+    return view_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/routes/coordinator.py", line 457, in list_competitions
+    rows = []
+           ^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/base.html", line 14, in top-level template code
+    {% set _page_content %}{% block content %}{% endblock %}{% endset %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 137, in block 'content'
+    <td>{{ participant.name }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'sqlalchemy.engine.row.Row object' has no attribute 'participant'
+2026-04-21 17:00:48,596 ERROR Exception on /coordinator/events/6/competitions [GET]
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/auth_decorators.py", line 68, in wrapped
+    return view_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/routes/coordinator.py", line 457, in list_competitions
+    rows = []
+           ^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/base.html", line 14, in top-level template code
+    {% set _page_content %}{% block content %}{% endblock %}{% endset %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 137, in block 'content'
+    <td>{{ participant.name }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'sqlalchemy.engine.row.Row object' has no attribute 'participant'
+2026-04-21 17:00:53,956 ERROR Exception on /coordinator/events/6/competitions [GET]
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/auth_decorators.py", line 68, in wrapped
+    return view_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/backend/routes/coordinator.py", line 457, in list_competitions
+    rows = []
+           ^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/base.html", line 14, in top-level template code
+    {% set _page_content %}{% block content %}{% endblock %}{% endset %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/frontend/templates/coordinator/event_participants.html", line 137, in block 'content'
+    <td>{{ participant.name }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Cursor/Copy/Copy_05/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'sqlalchemy.engine.row.Row object' has no attribute 'participant'
+2026-04-21 19:02:35,292 INFO AUDIT action=login user_id=18 role=coordinator details=email=cricketfaan744@gmail.com
+2026-04-21 19:03:26,440 INFO AUDIT action=logout user_id=18 role=coordinator details=None
+2026-04-21 19:04:39,044 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 19:05:22,262 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 19:05:25,849 INFO AUDIT action=login user_id=18 role=coordinator details=email=cricketfaan744@gmail.com
+2026-04-21 19:05:40,277 INFO AUDIT action=logout user_id=18 role=coordinator details=None
+2026-04-21 19:05:58,990 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 19:06:36,695 INFO AUDIT action=staff_account_deleted user_id=10 role=admin details=deleted_user_id=18 deleted_role=coordinator
+2026-04-21 19:07:58,367 INFO AUDIT action=staff_account_created user_id=10 role=admin details=created_user_id=19 created_role=coordinator email=cricketfaan744@gmail.com
+2026-04-21 19:09:20,935 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 19:09:24,577 INFO AUDIT action=login user_id=19 role=coordinator details=email=cricketfaan744@gmail.com
+2026-04-21 19:10:05,626 INFO AUDIT action=logout user_id=19 role=coordinator details=None
+2026-04-21 19:10:35,552 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 19:12:05,566 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 19:12:28,256 INFO AUDIT action=login user_id=3 role=management details=email=management@demo.local
+2026-04-21 19:13:39,356 INFO AUDIT action=logout user_id=3 role=management details=None
+2026-04-21 19:13:44,018 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 20:24:09,639 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 20:24:25,473 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-21 20:24:48,392 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-21 20:25:26,694 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-21 20:25:30,664 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 20:25:38,031 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 20:25:42,824 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 20:25:48,750 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 20:25:54,196 INFO AUDIT action=login user_id=19 role=coordinator details=email=cricketfaan744@gmail.com
+2026-04-21 20:31:05,675 INFO AUDIT action=logout user_id=19 role=coordinator details=None
+2026-04-21 20:31:24,296 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 20:31:31,521 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 20:31:36,197 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-21 21:53:44,448 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-21 21:53:47,877 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 21:53:54,200 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-21 21:54:00,530 INFO AUDIT action=login user_id=19 role=coordinator details=email=cricketfaan744@gmail.com
+2026-04-21 21:54:06,864 INFO AUDIT action=logout user_id=19 role=coordinator details=None
+2026-04-21 21:54:20,997 INFO AUDIT action=login user_id=3 role=management details=email=management@demo.local
+2026-04-21 21:54:32,756 INFO AUDIT action=logout user_id=3 role=management details=None
+2026-04-21 21:54:45,301 INFO AUDIT action=login_failed user_id=None role=None details=login_id=lakshmeeshshet744@gmail.com
+2026-04-21 21:54:58,156 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-21 21:55:15,378 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-21 21:55:23,860 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-21 21:55:28,593 INFO AUDIT action=logout user_id=13 role=convener details=None

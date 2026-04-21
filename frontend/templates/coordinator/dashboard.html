@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}Coordinator hub{% endblock %}
+{% block page_header %}Coordinator Dashboard{% endblock %}
+{% block content %}
+<section class="card dashboard-head">
+  <h2>Coordinator Dashboard</h2>
+  {% if user.role == 'convener' %}
+  <p class="muted">Logged in as <strong>{{ user.name }}</strong> (Convener for <strong>{{ convener_school }}</strong>). You can manage only your assigned school events, participants, and results. You can also create coordinators for your school.</p>
+  {% else %}
+  <p class="muted">Logged in as <strong>{{ user.name }}</strong>. Manage your allotted events, participants, registration control, and results.</p>
+  {% endif %}
+  <div class="action-row">
+    {% if can_create %}
+    <a class="btn" href="{{ url_for('coordinator.add_event') }}">+ Create Event</a>
+    {% endif %}
+    {% if user.role == 'convener' %}
+    <a class="btn" href="{{ url_for('management.create_coordinator_account') }}">Create Coordinator</a>
+    {% endif %}
+    <a class="btn btn-light" href="{{ url_for('analytics.dashboard') }}">Open Analytics</a>
+  </div>
+</section>
+
+{% set ns = namespace(total_competitions=0, total_participants=0) %}
+{% for event in events %}
+  {% set ns.total_competitions = ns.total_competitions + (event.competitions|length) %}
+  {% set ns.total_participants = ns.total_participants + (event.participations|length) %}
+{% endfor %}
+<section class="stat-grid">
+  <article class="stat-card">
+    <p>Managed Events</p>
+    <h3>{{ events|length }}</h3>
+  </article>
+  <article class="stat-card">
+    <p>Competitions</p>
+    <h3>{{ ns.total_competitions }}</h3>
+  </article>
+  <article class="stat-card">
+    <p>Participants</p>
+    <h3>{{ ns.total_participants }}</h3>
+  </article>
+  <article class="stat-card">
+    <p>Unassigned Events</p>
+    <h3>{{ unassigned_events|length }}</h3>
+  </article>
+</section>
+
+<h3 class="section-title">{% if user.role == 'convener' %}My School Events{% else %}My Events{% endif %}</h3>
+{% if not events %}
+<p class="muted">You have not created any events yet.</p>
+{% else %}
+<table class="data">
+  <thead>
+    <tr>
+      <th>Name</th><th>School</th><th>Date</th><th>Status</th><th>Category</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in events %}
+    <tr>
+      <td>{{ e.name }}</td>
+      <td>{{ e.school_or_department }}</td>
+      <td>{{ e.date }}</td>
+      <td>
+        {% if e.status == 'Upcoming' %}
+        <span class="badge badge-upcoming">Upcoming</span>
+        {% elif e.status == 'Ongoing' %}
+        <span class="badge badge-ongoing">Ongoing Now</span>
+        {% elif e.status == 'Completed' %}
+        <span class="badge badge-closed">Event Completed</span>
+        {% else %}
+        <span class="badge badge-closed">Registration Closed</span>
+        {% endif %}
+      </td>
+      <td>{{ e.category }}</td>
+      <td>
+        <div class="table-actions">
+          <a href="{{ url_for('coordinator.edit_event', event_id=e.id) }}">Edit</a>
+          <a href="{{ url_for('coordinator.list_competitions', event_id=e.id) }}">Competitions</a>
+          <a href="{{ url_for('coordinator.event_participants', event_id=e.id) }}">Participants</a>
+          <a href="{{ url_for('coordinator.event_results', event_id=e.id) }}">Results</a>
+          <a href="{{ url_for('analytics.export_registered_students', event_id=e.id) }}">Students CSV</a>
+          <form method="post" action="{{ url_for('coordinator.toggle_registration', event_id=e.id) }}" style="display:inline;">
+            <button type="submit">Toggle Registration</button>
+          </form>
+          {% if user.role != 'coordinator' %}
+          <form method="post" action="{{ url_for('coordinator.delete_event', event_id=e.id) }}" style="display:inline;" onsubmit="return confirm('Delete this event and all registrations/results?');">
+            <button type="submit" class="btn-danger">Delete</button>
+          </form>
+          {% endif %}
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if unassigned_events %}
+<h3 class="section-title">Legacy Events (No Owner)</h3>
+<p class="muted">Open an event and save — it will be assigned to you.</p>
+<table class="data">
+  <thead>
+    <tr><th>Name</th><th>School</th><th>Date</th><th>Status</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    {% for e in unassigned_events %}
+    <tr>
+      <td>{{ e.name }}</td>
+      <td>{{ e.school_or_department }}</td>
+      <td>{{ e.date }}</td>
+      <td>
+        {% if e.status == 'Upcoming' %}
+        <span class="badge badge-upcoming">Upcoming</span>
+        {% elif e.status == 'Ongoing' %}
+        <span class="badge badge-ongoing">Ongoing Now</span>
+        {% elif e.status == 'Completed' %}
+        <span class="badge badge-closed">Event Completed</span>
+        {% else %}
+        <span class="badge badge-closed">Registration Closed</span>
+        {% endif %}
+      </td>
+      <td>
+        <div class="table-actions">
+          <a href="{{ url_for('coordinator.edit_event', event_id=e.id) }}">Edit / Claim</a>
+          <a href="{{ url_for('coordinator.list_competitions', event_id=e.id) }}">Competitions</a>
+          <a href="{{ url_for('coordinator.event_participants', event_id=e.id) }}">Participants</a>
+          <a href="{{ url_for('coordinator.event_results', event_id=e.id) }}">Results</a>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

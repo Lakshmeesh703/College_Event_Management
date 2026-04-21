@@ -4,16 +4,77 @@
 <h2>Participants</h2>
 <p class="muted">Event: <strong>{{ event.name }}</strong> · {{ event.date }}</p>
 
+<section class="card" style="margin-bottom: 1rem;">
+  <h3 class="plain">Competitions</h3>
+  <p class="muted">Add sub-events one by one using this form. After each save, stay on this page and add the next competition.</p>
+  {% if competitions %}
+  <table class="data" style="margin-bottom: 1rem;">
+    <thead>
+      <tr>
+        <th>Name</th><th>Date</th><th>Max Participants</th><th>Description</th><th>Rules</th><th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in competitions %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td>{{ c.date }}</td>
+        <td>{{ c.max_participants or '—' }}</td>
+        <td>{{ c.description or '—' }}</td>
+        <td>{{ c.rules or '—' }}</td>
+        <td>
+          <a class="btn btn-light" href="{{ url_for('coordinator.export_competition_students_csv', event_id=event.id, competition_id=c.id) }}">Export CSV</a>
+          <form method="post" action="{{ url_for('coordinator.delete_competition', event_id=event.id, competition_id=c.id) }}" onsubmit="return confirm('Delete this competition?');">
+            <button type="submit" class="btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No competitions added for this event yet.</p>
+  {% endif %}
+
+  <h4 class="plain">Add Competition</h4>
+  <form method="post" action="{{ url_for('coordinator.create_competition', event_id=event.id) }}" class="form-grid">
+    <div>
+      <label for="name">Competition name</label>
+      <input id="name" name="name" type="text" required minlength="2" maxlength="200">
+    </div>
+    <div>
+      <label for="date">Date</label>
+      <input id="date" name="date" type="date" required>
+    </div>
+    <div>
+      <label for="max_participants">Max participants</label>
+      <input id="max_participants" name="max_participants" type="number" min="1" max="50000" placeholder="Optional">
+    </div>
+    <div>
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="2" maxlength="4000" placeholder="Optional"></textarea>
+    </div>
+    <div>
+      <label for="rules">Rules</label>
+      <textarea id="rules" name="rules" rows="2" maxlength="4000" placeholder="Optional"></textarea>
+    </div>
+    <div style="display:flex;align-items:end;">
+      <button type="submit">Add Competition</button>
+    </div>
+  </form>
+</section>
+
 <table class="data">
   <thead>
     <tr>
-      <th>Name</th><th>Roll</th><th>Department/Organization</th><th>WhatsApp</th><th>Year</th><th>External</th><th>Action</th>
+      <th>Name</th><th>Competition</th><th>Roll</th><th>Department/Organization</th><th>WhatsApp</th><th>Year</th><th>External</th><th>Action</th>
     </tr>
   </thead>
   <tbody>
-    {% for ep, p in rows %}
+    {% for ep, p, comp in rows %}
     <tr>
       <td>{{ p.name }}</td>
+      <td>{{ comp.name if comp else '—' }}</td>
       <td>{{ p.roll_number or '—' }}</td>
       <td>{{ p.department or p.organization or '—' }}</td>
       <td>{{ p.whatsapp_number or '—' }}</td>
@@ -22,7 +83,7 @@
       <td><a href="{{ url_for('coordinator.edit_participant', event_id=event.id, participant_id=p.id) }}">Edit details</a></td>
     </tr>
     {% else %}
-    <tr><td colspan="7">No registrations yet.</td></tr>
+    <tr><td colspan="8">No competition registrations yet.</td></tr>
     {% endfor %}
   </tbody>
 </table>

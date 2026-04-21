@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% block title %}Management Dashboard{% endblock %}
+{% block page_header %}Admin Management Dashboard{% endblock %}
+{% block content %}
+<section class="card dashboard-head">
+  <h2 class="plain">Admin Management Dashboard</h2>
+  <p class="muted">Use this dashboard to create and manage convener, coordinator, and management accounts.</p>
+  <div class="action-row">
+    <a class="btn" href="{{ url_for('coordinator.add_event') }}">Create Event (All Schools)</a>
+    <a class="btn" href="{{ url_for('management.event_data') }}">Event Data by School</a>
+    <a class="btn" href="{{ url_for('management.create_convener_account') }}">Create Convener Account</a>
+    <a class="btn" href="{{ url_for('management.create_coordinator_account') }}">Create Coordinator Account</a>
+    <a class="btn" href="{{ url_for('management.create_management_account') }}">Create Management Account</a>
+    <a class="btn btn-light" href="{{ url_for('management.student_accounts') }}">View Student Accounts</a>
+    <a class="btn btn-light" href="{{ url_for('analytics.dashboard') }}">Open Analytics</a>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="plain">Management Analytics Snapshot</h2>
+  <p class="muted">A quick analytics overview directly in admin management view.</p>
+
+  <div class="mini-kpis">
+    <article class="kpi-card">
+      <p>Total Events</p>
+      <h3>{{ analytics_kpis.total_events }}</h3>
+    </article>
+    <article class="kpi-card">
+      <p>Total Registrations</p>
+      <h3>{{ analytics_kpis.total_registrations }}</h3>
+    </article>
+    <article class="kpi-card">
+      <p>Results Published</p>
+      <h3>{{ analytics_kpis.total_results }}</h3>
+    </article>
+    <article class="kpi-card">
+      <p>Active Students</p>
+      <h3>{{ analytics_kpis.active_students }}</h3>
+    </article>
+  </div>
+
+  <div class="grid-2" style="margin-top: 16px;">
+    <div>
+      <h3 class="plain">Top Events by Registrations</h3>
+      <div class="table-wrap management-table-wrap">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>School</th>
+              <th>Registrations</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in top_events %}
+            <tr>
+              <td>{{ row.name }}</td>
+              <td>{{ row.school or 'Unknown' }}</td>
+              <td>{{ row.registrations }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="3">No event data available.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="plain">School-wise Event Data</h3>
+      <p class="muted">To view school-specific events, first open <strong>Event Data by School</strong> and select a school.</p>
+      <a class="btn btn-light" href="{{ url_for('management.event_data') }}">Choose School</a>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="plain">Convener Data Section</h2>
+  {% if convener_rows %}
+    <div class="table-wrap management-table-wrap">
+      <table class="data management-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Gmail</th>
+            <th>Phone</th>
+            <th>University</th>
+            <th>University Outlook Mail</th>
+            <th>Position</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user, profile in convener_rows %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ profile.phone_number }}</td>
+            <td>{{ profile.university }}</td>
+            <td>{{ profile.university_outlook_email }}</td>
+            <td>{{ profile.position }}</td>
+            <td>{{ profile.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+              <form method="post" action="{{ url_for('management.delete_convener_account', user_id=user.id) }}" onsubmit="return confirm('Delete this convener account?');">
+                <button type="submit" class="btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">No convener accounts created yet.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2 class="plain">Coordinator Data Section</h2>
+  {% if coordinator_rows %}
+    <div class="table-wrap management-table-wrap">
+      <table class="data management-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Gmail</th>
+            <th>Phone</th>
+            <th>University</th>
+            <th>University Outlook Mail</th>
+            <th>Position</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user, profile in coordinator_rows %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ profile.phone_number }}</td>
+            <td>{{ profile.university }}</td>
+            <td>{{ profile.university_outlook_email }}</td>
+            <td>{{ profile.position }}</td>
+            <td>{{ profile.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+              <form method="post" action="{{ url_for('management.delete_coordinator_account', user_id=user.id) }}" onsubmit="return confirm('Delete this coordinator account?');">
+                <button type="submit" class="btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">No coordinator accounts created yet.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2 class="plain">Management Data Section</h2>
+  {% if management_rows %}
+    <div class="table-wrap management-table-wrap">
+      <table class="data management-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Gmail</th>
+            <th>Phone</th>
+            <th>University</th>
+            <th>University Outlook Mail</th>
+            <th>Position</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user, profile in management_rows %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ profile.phone_number }}</td>
+            <td>{{ profile.university }}</td>
+            <td>{{ profile.university_outlook_email }}</td>
+            <td>{{ profile.position }}</td>
+            <td>{{ profile.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+              <form method="post" action="{{ url_for('management.delete_management_account', user_id=user.id) }}" onsubmit="return confirm('Delete this management account?');">
+                <button type="submit" class="btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">No management accounts created yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

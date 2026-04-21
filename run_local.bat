@@ -32,7 +32,7 @@ echo   Open: http://127.0.0.1:5000
 echo   Stop: Ctrl+C
 echo.
 
-python app.py
+python -m backend.start
 pause
 goto :eof
 
