@@ -14,7 +14,21 @@ read_env_value() {
   if [ ! -f .env ]; then
     return 0
   fi
-  grep -E "^${key}=" .env | tail -n 1 | cut -d '=' -f2-
+  local value
+  value="$(grep -E "^${key}=" .env | tail -n 1 | cut -d '=' -f2-)"
+  # Normalize .env parsing: remove CRLF residue, trim outer spaces, drop matching quotes.
+  value="${value//$'\r'/}"
+  value="${value#${value%%[![:space:]]*}}"
+  value="${value%${value##*[![:space:]]}}"
+  if [ "${value#\"}" != "$value" ] && [ "${value%\"}" != "$value" ]; then
+    value="${value#\"}"
+    value="${value%\"}"
+  fi
+  if [ "${value#\'}" != "$value" ] && [ "${value%\'}" != "$value" ]; then
+    value="${value#\'}"
+    value="${value%\'}"
+  fi
+  printf '%s' "$value"
 }
 
 if [ ! -d .venv ]; then
@@ -26,6 +40,24 @@ if [ ! -d .venv ]; then
 fi
 
 export SECRET_KEY="${SECRET_KEY:-dev-local-change-me}"
+
+# Keep local SMTP config deterministic: prefer .env values and clear stale shell values.
+for key in \
+  MAIL_SERVER MAIL_HOST MAIL_PORT MAIL_USE_TLS MAIL_USE_SSL \
+  EMAIL_USER EMAIL_PASS \
+  MAIL_USERNAME MAIL_USER MAIL_PASSWORD MAIL_APP_PASSWORD MAIL_DEFAULT_SENDER MAIL_FROM \
+  SMTP_SERVER SMTP_HOST SMTP_PORT SMTP_USE_TLS SMTP_USE_SSL \
+  SMTP_USERNAME SMTP_USER SMTP_PASSWORD SMTP_PASS SMTP_FROM \
+  EMAIL_HOST EMAIL_PORT EMAIL_USE_TLS EMAIL_USE_SSL EMAIL_HOST_USER EMAIL_HOST_PASSWORD EMAIL_FROM \
+  GMAIL_USER GMAIL_APP_PASSWORD
+do
+  val="$(read_env_value "$key")"
+  if [ -n "$val" ]; then
+    export "$key=$val"
+  else
+    unset "$key"
+  fi
+done
 
 # Ensure PostgreSQL/Supabase settings are present.
 db_url="${DATABASE_URL:-$(read_env_value DATABASE_URL)}"
