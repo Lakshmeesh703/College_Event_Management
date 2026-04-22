@@ -29,7 +29,12 @@ def send_otp_email(to_email: str, purpose: str, otp_code: str) -> bool:
 
     username = _env_first("MAIL_USERNAME", "MAIL_USER", "SMTP_USERNAME", "SMTP_USER")
     password = _env_first("MAIL_PASSWORD", "SMTP_PASSWORD", "SMTP_PASS")
-    from_email = _env_first("MAIL_FROM", "SMTP_FROM", default=username or "noreply@example.com")
+    from_email = _env_first(
+        "MAIL_FROM",
+        "MAIL_DEFAULT_SENDER",
+        "SMTP_FROM",
+        default=username or "noreply@example.com",
+    )
     if "@" not in from_email and "@" in username:
         from_email = username
 
