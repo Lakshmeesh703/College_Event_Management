@@ -66,6 +66,19 @@ def send_otp_email(to_email: str, purpose: str, otp_code: str) -> bool:
         print(f"[OTP-EMAIL-ERROR] MAIL_FROM appears invalid: {from_email!r}")
         return False
 
+    host_lower = host.lower()
+    from_lower = from_email.lower()
+    if (
+        ("brevo" in host_lower or "sendinblue" in host_lower)
+        and from_lower.endswith("@smtp-brevo.com")
+    ):
+        print(
+            "[OTP-EMAIL-ERROR] Brevo rejected sender. "
+            "Set MAIL_FROM to a Brevo-verified sender email/domain, "
+            f"current={from_email}"
+        )
+        return False
+
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = from_email
