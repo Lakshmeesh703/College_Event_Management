@@ -54,6 +54,18 @@ def send_otp_email(to_email: str, purpose: str, otp_code: str) -> bool:
         print(f"[OTP-DEV] {purpose} OTP for {to_email}: {otp_code}")
         return False
 
+    # If host is set, treat missing auth as misconfiguration (common on Render env setup).
+    if not username or not password:
+        print(
+            "[OTP-EMAIL-ERROR] SMTP auth missing: "
+            f"host={host} user_set={bool(username)} pass_set={bool(password)}"
+        )
+        return False
+
+    if "@" not in from_email:
+        print(f"[OTP-EMAIL-ERROR] MAIL_FROM appears invalid: {from_email!r}")
+        return False
+
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = from_email
@@ -71,9 +83,15 @@ def send_otp_email(to_email: str, purpose: str, otp_code: str) -> bool:
             if use_tls and not use_ssl:
                 server.starttls()
                 server.ehlo()
-            if username:
-                server.login(username, password)
-            server.send_message(msg)
+            server.login(username, password)
+            refused = server.send_message(msg)
+            if refused:
+                print(f"[OTP-EMAIL-ERROR] Recipients refused: {refused}")
+                return False
+        print(
+            "[OTP-EMAIL-SENT] "
+            f"purpose={purpose} to={to_email} via={host}:{port} from={from_email}"
+        )
         return True
     except Exception as exc:
         print(
