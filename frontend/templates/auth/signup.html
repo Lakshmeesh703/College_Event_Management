@@ -86,8 +86,12 @@
       const isExternal = externalCheck.checked;
       rollField.style.display = isExternal ? 'none' : 'block';
       rollInput.required = !isExternal;
-      loginEmail.pattern = '';
-      universityMail.pattern = isExternal ? '' : chanakyaPattern;
+      loginEmail.removeAttribute('pattern');
+      if (isExternal) {
+        universityMail.removeAttribute('pattern');
+      } else {
+        universityMail.setAttribute('pattern', chanakyaPattern);
+      }
       loginEmail.placeholder = 'name@example.com';
       universityMail.placeholder = isExternal ? 'name@example.com' : 'name@chanakyauniversity.edu.in';
       loginEmail.title = 'Enter a valid email address.';
