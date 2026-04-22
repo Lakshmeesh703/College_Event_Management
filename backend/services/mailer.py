@@ -18,7 +18,7 @@ def _env_first(*names: str, default: str = "") -> str:
 
 def send_otp_email(to_email: str, purpose: str, otp_code: str) -> bool:
     # Accept common naming variants used by different hosting guides.
-    host = _env_first("MAIL_HOST", "MAIL_SERVER", "SMTP_HOST")
+    host = _env_first("MAIL_HOST", "MAIL_SERVER", "SMTP_HOST", default="smtp.gmail.com")
 
     port_raw = _env_first("MAIL_PORT", "SMTP_PORT", default="587")
     try:
@@ -30,8 +30,8 @@ def send_otp_email(to_email: str, purpose: str, otp_code: str) -> bool:
     username = _env_first("MAIL_USERNAME", "MAIL_USER", "SMTP_USERNAME", "SMTP_USER")
     password = _env_first("MAIL_PASSWORD", "SMTP_PASSWORD", "SMTP_PASS")
     from_email = _env_first(
-        "MAIL_FROM",
         "MAIL_DEFAULT_SENDER",
+        "MAIL_FROM",
         "SMTP_FROM",
         default=username or "noreply@example.com",
     )
@@ -59,7 +59,7 @@ def send_otp_email(to_email: str, purpose: str, otp_code: str) -> bool:
         print(f"[OTP-DEV] {purpose} OTP for {to_email}: {otp_code}")
         return False
 
-    # If host is set, treat missing auth as misconfiguration (common on Render env setup).
+    # If host is set, treat missing auth as misconfiguration.
     if not username or not password:
         print(
             "[OTP-EMAIL-ERROR] SMTP auth missing: "
@@ -68,20 +68,7 @@ def send_otp_email(to_email: str, purpose: str, otp_code: str) -> bool:
         return False
 
     if "@" not in from_email:
-        print(f"[OTP-EMAIL-ERROR] MAIL_FROM appears invalid: {from_email!r}")
-        return False
-
-    host_lower = host.lower()
-    from_lower = from_email.lower()
-    if (
-        ("brevo" in host_lower or "sendinblue" in host_lower)
-        and from_lower.endswith("@smtp-brevo.com")
-    ):
-        print(
-            "[OTP-EMAIL-ERROR] Brevo rejected sender. "
-            "Set MAIL_FROM to a Brevo-verified sender email/domain, "
-            f"current={from_email}"
-        )
+        print(f"[OTP-EMAIL-ERROR] MAIL_DEFAULT_SENDER appears invalid: {from_email!r}")
         return False
 
     msg = EmailMessage()

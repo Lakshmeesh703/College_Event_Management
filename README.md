@@ -250,6 +250,22 @@ export DB_NAME=college_events
 export SECRET_KEY=use-a-long-random-string
 ```
 
+For OTP email delivery using Gmail SMTP (works for local and Render):
+
+```bash
+export MAIL_SERVER=smtp.gmail.com
+export MAIL_PORT=587
+export MAIL_USE_TLS=true
+export MAIL_USERNAME=yourgmail@gmail.com
+export MAIL_PASSWORD=your_gmail_app_password
+export MAIL_DEFAULT_SENDER=yourgmail@gmail.com
+```
+
+Notes:
+
+- Use a Gmail **App Password** (requires 2-step verification), not your normal Gmail password.
+- Keep `MAIL_DEFAULT_SENDER` same as `MAIL_USERNAME` for Gmail SMTP.
+
 ### 4. Create tables and run
 
 Flask-SQLAlchemy creates tables on startup (`db.create_all()` in `backend/app.py`).
