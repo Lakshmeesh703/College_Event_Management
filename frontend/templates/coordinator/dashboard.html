@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Coordinator hub{% endblock %}
-{% block page_header %}Coordinator Dashboard{% endblock %}
+{% block title %}{% if user.role == 'convener' %}Convener hub{% else %}Coordinator hub{% endif %}{% endblock %}
+{% block page_header %}{% if user.role == 'convener' %}Convener Dashboard{% else %}Coordinator Dashboard{% endif %}{% endblock %}
 {% block content %}
 <section class="card dashboard-head">
-  <h2>Coordinator Dashboard</h2>
+  <h2>{% if user.role == 'convener' %}Convener Dashboard{% else %}Coordinator Dashboard{% endif %}</h2>
   {% if user.role == 'convener' %}
   <p class="muted">Logged in as <strong>{{ user.name }}</strong> (Convener for <strong>{{ convener_school }}</strong>). You can manage only your assigned school events, participants, and results. You can also create coordinators for your school.</p>
   {% else %}

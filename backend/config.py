@@ -1,0 +1,44 @@
+"""
+Application configuration.
+
+Database credentials are read only from environment variables — never hardcode secrets.
+Supports DATABASE_URL (cloud hosts) or DB_USER / DB_PASSWORD / DB_HOST / DB_PORT / DB_NAME.
+"""
+import os
+from urllib.parse import quote_plus
+
+def _normalize_database_url(url: str) -> str:
+    """Some hosts use postgres:// which SQLAlchemy 2.x expects as postgresql://."""
+    if url.startswith("postgres://"):
+        return url.replace("postgres://", "postgresql://", 1)
+    return url
+
+
+class Config:
+    SECRET_KEY = os.environ.get("SECRET_KEY", "dev-only-change-in-production")
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS: dict = {}
+
+    _db_url = (os.environ.get("DATABASE_URL") or "").strip()
+
+    if _db_url:
+        SQLALCHEMY_DATABASE_URI = _normalize_database_url(_db_url.strip())
+    else:
+        _required = ["DB_USER", "DB_PASSWORD", "DB_HOST", "DB_PORT", "DB_NAME"]
+        _missing = [k for k in _required if not (os.environ.get(k) or "").strip()]
+        if _missing:
+            raise RuntimeError(
+                "Database configuration missing. Set DATABASE_URL or all DB_* values: "
+                + ", ".join(_missing)
+            )
+
+        _user = quote_plus(os.environ.get("DB_USER", "").strip())
+        # quote_plus so @ and : in passwords do not break the URL
+        _pw = quote_plus(os.environ.get("DB_PASSWORD", "").strip())
+        _host = os.environ.get("DB_HOST", "").strip()
+        _port = os.environ.get("DB_PORT", "").strip()
+        _name = os.environ.get("DB_NAME", "").strip()
+        SQLALCHEMY_DATABASE_URI = (
+            f"postgresql://{_user}:{_pw}@{_host}:{_port}/{_name}"
+        )
