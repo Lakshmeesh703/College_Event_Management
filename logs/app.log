@@ -537,3 +537,86 @@ jinja2.exceptions.UndefinedError: 'sqlalchemy.engine.row.Row object' has no attr
 2026-04-28 23:56:23,236 INFO AUDIT action=login user_id=3 role=management details=email=management@demo.local
 2026-04-29 00:04:01,743 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
 2026-04-29 22:27:33,069 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-29 23:00:14,246 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-29 23:00:52,678 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-29 23:01:15,163 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-29 23:11:29,022 ERROR Exception on /auth/forgot-password [POST]
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/backend/routes/auth.py", line 344, in forgot_password
+    user = User.query.filter_by(email=email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/lakshmeesh_shet/Lakshmeesh Shet/Extract/Copy_06/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT users.id AS users_id, users.name AS users_name, users.email AS users_email, users.password_hash AS users_password_hash, users.role AS users_role, users.is_active AS users_is_active, users.is_external_user AS users_is_external_user, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'lakshmeeshshet744@gmail.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
