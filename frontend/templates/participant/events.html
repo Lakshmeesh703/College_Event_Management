@@ -74,7 +74,14 @@
   <tbody>
     {% for e in events %}
     <tr>
-      <td>{{ e.name }}</td>
+      <td>
+        {{ e.name }}
+        {% if e.brochure_path %}
+        <div style="margin-top:0.2rem;">
+          <a href="{{ url_for('main.download_brochure', filepath=e.brochure_path) }}" style="font-size:0.85rem; text-decoration:underline;">View Brochure</a>
+        </div>
+        {% endif %}
+      </td>
       <td>{{ e.date }}</td>
       <td>
         {% if e.status == 'Upcoming' %}
@@ -98,6 +105,11 @@
             <div class="muted" style="font-size:0.85rem;">
               {{ can_register_comp_map[c.id].count }} / {{ can_register_comp_map[c.id].cap or '∞' }}
             </div>
+            {% if c.brochure_path %}
+            <div style="margin:0.3rem 0;">
+              <a href="{{ url_for('main.download_brochure', filepath=c.brochure_path) }}" style="font-size:0.85rem; text-decoration:underline;">View Brochure</a>
+            </div>
+            {% endif %}
             {% if c.id in joined_competition_ids %}
               <span class="muted">Registered</span>
             {% elif can_register_comp_map[c.id].allowed %}

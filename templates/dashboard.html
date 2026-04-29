@@ -117,6 +117,12 @@
           <canvas id="yearWiseChart"></canvas>
         </div>
       </div>
+      <div class="mini-graph-card">
+        <h4 class="plain">Registrations by Weekday</h4>
+        <div class="mini-canvas-wrap">
+          <canvas id="weekdayChart"></canvas>
+        </div>
+      </div>
     </div>
   </section>
   {% endif %}
@@ -140,6 +146,32 @@
           {% else %}
           <tr>
             <td colspan="2">No data for selected filters.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3 class="plain">Top Competitions by Registrations</h3>
+    <div class="table-wrap management-table-wrap">
+      <table class="data">
+        <thead>
+          <tr>
+            <th>Competition</th>
+            <th>Registrations</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for comp in top_competitions %}
+          <tr>
+            <td>{{ comp.name }}</td>
+            <td>{{ comp.registrations }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="2">No competition data for selected filters.</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -292,6 +324,9 @@
 
     const gridColor = 'rgba(148, 163, 184, 0.2)';
 
+    const weekdayLabels = {{ weekday_counts | map(attribute='weekday') | list | tojson }};
+    const weekdayValues = {{ weekday_counts | map(attribute='count') | list | tojson }};
+
     const monthlyEl = document.getElementById('monthlyTrendChart');
     if (monthlyEl) {
       new Chart(monthlyEl, {
@@ -350,6 +385,32 @@
             label: 'Registrations',
             data: yearValues,
             backgroundColor: '#7c3aed',
+            borderRadius: 6,
+            maxBarThickness: 34
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false } },
+            y: { beginAtZero: true, grid: { color: gridColor } }
+          }
+        }
+      });
+    }
+
+    const weekdayEl = document.getElementById('weekdayChart');
+    if (weekdayEl) {
+      new Chart(weekdayEl, {
+        type: 'bar',
+        data: {
+          labels: weekdayLabels,
+          datasets: [{
+            label: 'Registrations',
+            data: weekdayValues,
+            backgroundColor: '#f43f5e',
             borderRadius: 6,
             maxBarThickness: 34
           }]

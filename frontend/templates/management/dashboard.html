@@ -7,6 +7,7 @@
   <p class="muted">Use this dashboard to create and manage convener, coordinator, and management accounts.</p>
   <div class="action-row">
     <a class="btn" href="{{ url_for('coordinator.add_event') }}">Create Event (All Schools)</a>
+    <a class="btn btn-light" href="{{ url_for('analytics.events_by_school') }}">View Events by School</a>
     <a class="btn" href="{{ url_for('management.event_data') }}">Event Data by School</a>
     <a class="btn" href="{{ url_for('management.create_convener_account') }}">Create Convener Account</a>
     <a class="btn" href="{{ url_for('management.create_coordinator_account') }}">Create Coordinator Account</a>

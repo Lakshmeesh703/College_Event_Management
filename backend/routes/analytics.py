@@ -395,6 +395,41 @@ def dashboard():
             for row in active_q
         ]
 
+    # Registrations by weekday (Mon..Sun)
+    weekday_counts = []
+    if event_ids:
+        parts = (
+            db.session.query(EventParticipation.created_at)
+            .filter(EventParticipation.event_id.in_(event_ids))
+            .all()
+        )
+        if parts:
+            from collections import Counter
+
+            dow = Counter()
+            for (created_at,) in parts:
+                if created_at:
+                    dow[created_at.strftime("%A")] += 1
+            order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+            weekday_counts = [
+                {"weekday": d, "count": int(dow.get(d, 0))} for d in order if dow.get(d, 0) > 0
+            ]
+
+    # Top competitions by registrations across visible events
+    top_competitions = []
+    if event_ids:
+        q = (
+            db.session.query(Competition.name, db.func.count(EventParticipation.id).label("regs"))
+            .join(EventParticipation, EventParticipation.competition_id == Competition.id)
+            .filter(EventParticipation.event_id.in_(event_ids))
+            .group_by(Competition.id, Competition.name)
+            .order_by(db.func.count(EventParticipation.id).desc())
+            .limit(10)
+        )
+        top_competitions = [
+            {"name": r[0], "registrations": int(r[1])} for r in q.all()
+        ]
+
     top_school_name = "-"
     top_school_events = 0
     if not events_per_dept.empty:
@@ -456,6 +491,8 @@ def dashboard():
         convener_school=convener_school,
         chart_q=chart_q,
         access=access_context,
+        weekday_counts=weekday_counts,
+        top_competitions=top_competitions,
     )
 
 

@@ -101,6 +101,7 @@ class Event(db.Model):
     allow_external = db.Column(db.Boolean, default=False, nullable=False)
     registration_closed_manually = db.Column(db.Boolean, default=False, nullable=False)
     status = db.Column(db.String(32), default=STATUS_UPCOMING, nullable=False, index=True)
+    brochure_path = db.Column(db.String(500), nullable=True)
     # Coordinator who owns this event (optional for legacy rows before RBAC)
     created_by_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True, index=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
@@ -203,6 +204,7 @@ class Competition(db.Model):
     min_team_size = db.Column(db.Integer, nullable=True)
     max_team_size = db.Column(db.Integer, nullable=True)
     date = db.Column(db.Date, nullable=False)
+    brochure_path = db.Column(db.String(500), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
     event = db.relationship("Event", back_populates="competitions")

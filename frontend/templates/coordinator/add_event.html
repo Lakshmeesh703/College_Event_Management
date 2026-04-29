@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Add event</h2>
 <p class="muted">This event will be linked to your coordinator account.</p>
-<form method="post" class="card" action="{{ url_for('coordinator.add_event') }}">
+<form method="post" class="card" action="{{ url_for('coordinator.add_event') }}" enctype="multipart/form-data">
   <label for="name">Event name</label>
   <input type="text" id="name" name="name" required>
 
@@ -47,6 +47,10 @@
 
   <label for="organizer">Organizer name</label>
   <input type="text" id="organizer" name="organizer" required>
+
+  <label for="brochure">Event Brochure (PDF, max 10MB)</label>
+  <input type="file" id="brochure" name="brochure" accept=".pdf" aria-describedby="brochure-help">
+  <p class="muted" id="brochure-help">Optional. Students will be able to download this PDF from the event page.</p>
 
   <button type="submit">Save event and add competitions</button>
   <a href="{{ url_for('coordinator.dashboard') }}">Cancel</a>

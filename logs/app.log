@@ -518,3 +518,22 @@ jinja2.exceptions.UndefinedError: 'sqlalchemy.engine.row.Row object' has no attr
 2026-04-22 21:55:50,122 INFO AUDIT action=logout user_id=10 role=admin details=None
 2026-04-22 23:07:17,711 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
 2026-04-22 23:08:13,436 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-28 22:41:25,708 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-28 22:43:47,387 INFO AUDIT action=event_created user_id=10 role=coordinator details=event_id=10 name=Eno Ond
+2026-04-28 22:46:04,950 INFO AUDIT action=competition_created user_id=10 role=coordinator details=event_id=10 competition_id=12
+2026-04-28 22:46:09,564 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-28 22:46:17,119 INFO AUDIT action=login user_id=16 role=coordinator details=email=akashsh000717@gmail.com
+2026-04-28 22:56:45,461 INFO AUDIT action=logout user_id=16 role=coordinator details=None
+2026-04-28 22:57:00,965 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-28 23:03:42,128 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-28 23:03:47,682 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-28 23:14:42,422 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com
+2026-04-28 23:16:39,596 INFO AUDIT action=logout user_id=6 role=student details=None
+2026-04-28 23:18:18,164 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-28 23:18:25,909 INFO AUDIT action=login user_id=13 role=convener details=email=25harshitha2006@gmail.com
+2026-04-28 23:20:52,445 INFO AUDIT action=logout user_id=13 role=convener details=None
+2026-04-28 23:20:58,040 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-28 23:25:37,525 INFO AUDIT action=logout user_id=10 role=admin details=None
+2026-04-28 23:56:23,236 INFO AUDIT action=login user_id=3 role=management details=email=management@demo.local
+2026-04-29 00:04:01,743 INFO AUDIT action=login user_id=10 role=admin details=email=cumanagement522@gmail.com
+2026-04-29 22:27:33,069 INFO AUDIT action=login user_id=6 role=participant details=email=lakshmeeshshet744@gmail.com

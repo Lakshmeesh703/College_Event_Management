@@ -3,7 +3,9 @@ Public pages, calendar, published results lookup, and redirects for old URLs.
 
 Data entry is role-based: coordinators and participants use their own blueprints.
 """
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+import os
+
+from flask import Blueprint, flash, redirect, render_template, request, session, url_for, send_file
 from sqlalchemy import func
 
 from ..auth_decorators import (
@@ -18,6 +20,7 @@ from ..models import Event, EventParticipation, Participant, Result, Team, User,
 from .auth import dashboard_url_for_role
 
 bp = Blueprint("main", __name__)
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 ALLOWED_CATEGORIES = [
     ("technical", "Technical"),
@@ -155,3 +158,25 @@ def student_history():
         p = None
 
     return render_template("student_history.html", roll=roll, participant=p, rows=rows)
+
+
+@bp.route("/brochures/<path:filepath>")
+def download_brochure(filepath: str):
+    """Serve PDF brochures inline for browser preview/opening."""
+    if ".." in filepath or not filepath.startswith("brochures/"):
+        return "Not found", 404
+
+    absolute_path = os.path.join(PROJECT_ROOT, filepath)
+    if not os.path.exists(absolute_path):
+        return "File not found", 404
+
+    try:
+        return send_file(
+            absolute_path,
+            mimetype="application/pdf",
+            as_attachment=False,
+            download_name=os.path.basename(filepath),
+            conditional=True,
+        )
+    except Exception:
+        return "Error downloading file", 500

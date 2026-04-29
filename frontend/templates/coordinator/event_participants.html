@@ -11,7 +11,7 @@
   <table class="data" style="margin-bottom: 1rem;">
     <thead>
       <tr>
-        <th>Name</th><th>Type</th><th>Date</th><th>Max Entries</th><th>Team Size</th><th>Description</th><th>Rules</th><th>Action</th>
+        <th>Name</th><th>Type</th><th>Date</th><th>Max Entries</th><th>Team Size</th><th>Description</th><th>Rules</th><th>Brochure</th><th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -24,7 +24,9 @@
         <td>{% if c.is_team_event %}{{ c.min_team_size or '—' }} - {{ c.max_team_size or '—' }}{% else %}—{% endif %}</td>
         <td>{{ c.description or '—' }}</td>
         <td>{{ c.rules or '—' }}</td>
+        <td>{% if c.brochure_path %}<a href="{{ url_for('main.download_brochure', filepath=c.brochure_path) }}">View Brochure</a>{% else %}—{% endif %}</td>
         <td>
+          <a class="btn btn-light" href="{{ url_for('coordinator.edit_competition', event_id=event.id, competition_id=c.id) }}">Edit</a>
           <a class="btn btn-light" href="{{ url_for('coordinator.export_competition_students_csv', event_id=event.id, competition_id=c.id) }}">Export CSV</a>
           <form method="post" action="{{ url_for('coordinator.delete_competition', event_id=event.id, competition_id=c.id) }}" onsubmit="return confirm('Delete this competition?');">
             <button type="submit" class="btn-danger">Delete</button>
@@ -39,7 +41,7 @@
   {% endif %}
 
   <h4 class="plain">Add Competition</h4>
-  <form method="post" action="{{ url_for('coordinator.create_competition', event_id=event.id) }}" class="clean-form">
+  <form method="post" action="{{ url_for('coordinator.create_competition', event_id=event.id) }}" class="clean-form" enctype="multipart/form-data">
     <div class="form-grid">
       <div>
         <label for="name">Competition name</label>
@@ -67,6 +69,11 @@
       <div style="grid-column:1 / -1;">
         <label for="rules">Rules</label>
         <textarea id="rules" name="rules" rows="2" maxlength="4000" placeholder="Optional"></textarea>
+      </div>
+      <div style="grid-column:1 / -1;">
+        <label for="brochure">Competition Brochure (PDF, max 10MB)</label>
+        <input type="file" id="brochure" name="brochure" accept=".pdf" aria-describedby="brochure-help">
+        <p class="muted" id="brochure-help">Optional. Students will be able to download this PDF from the competition page.</p>
       </div>
     </div>
 

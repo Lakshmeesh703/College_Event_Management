@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Edit competition{% endblock %}
+{% block content %}
+<h2>Edit competition</h2>
+<p class="muted">Event: <strong>{{ event.name }}</strong></p>
+<form method="post" class="card" enctype="multipart/form-data">
+  <label for="name">Competition name</label>
+  <input type="text" id="name" name="name" value="{{ competition.name }}" required minlength="2" maxlength="200">
+
+  <label for="date">Date</label>
+  <input type="date" id="date" name="date" value="{{ competition.date.isoformat() }}" required>
+
+  <label for="max_participants">Max participants</label>
+  <input type="number" id="max_participants" name="max_participants" min="1" max="50000" value="{{ competition.max_participants or '' }}">
+
+  <label for="is_team_event">Competition type</label>
+  <select id="is_team_event" name="is_team_event">
+    <option value="" {% if not competition.is_team_event %}selected{% endif %}>Individual</option>
+    <option value="on" {% if competition.is_team_event %}selected{% endif %}>Team / group</option>
+  </select>
+
+  <label for="description">Description</label>
+  <textarea id="description" name="description" rows="2" maxlength="4000">{{ competition.description or '' }}</textarea>
+
+  <label for="rules">Rules</label>
+  <textarea id="rules" name="rules" rows="2" maxlength="4000">{{ competition.rules or '' }}</textarea>
+
+  <label for="brochure">Competition Brochure (PDF, max 10MB)</label>
+  <input type="file" id="brochure" name="brochure" accept=".pdf">
+  {% if competition.brochure_path %}
+  <p class="muted">Current brochure: <a href="{{ url_for('main.download_brochure', filepath=competition.brochure_path) }}">View Brochure</a></p>
+  {% endif %}
+
+  <div id="team-settings" style="{% if not competition.is_team_event %}display:none;{% endif %} margin-top: 0.3rem;">
+    <strong>Team settings</strong>
+    <p class="muted" style="margin: 0.35rem 0 0;">Set the minimum and maximum number of members for this competition.</p>
+    <div class="form-grid" style="margin-top: 0.7rem;">
+      <div>
+        <label for="min_team_size">Minimum team size</label>
+        <input id="min_team_size" name="min_team_size" type="number" min="1" max="100" value="{{ competition.min_team_size or '' }}" placeholder="Example: 2">
+      </div>
+      <div>
+        <label for="max_team_size">Maximum team size</label>
+        <input id="max_team_size" name="max_team_size" type="number" min="1" max="100" value="{{ competition.max_team_size or '' }}" placeholder="Example: 4">
+      </div>
+    </div>
+  </div>
+
+  <button type="submit">Save changes</button>
+  <a href="{{ url_for('coordinator.event_participants', event_id=event.id) }}">Back</a>
+</form>
+{% endblock %}

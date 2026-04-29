@@ -63,15 +63,6 @@ def _ensure_schema_updates():
     if not _column_exists("participants", "university_mail"):
         statements.append("ALTER TABLE participants ADD COLUMN university_mail VARCHAR(255)")
 
-    competition_columns = {
-        "is_team_event": "BOOLEAN NOT NULL DEFAULT FALSE" if dialect == "postgresql" else "BOOLEAN NOT NULL DEFAULT 0",
-        "min_team_size": "INTEGER",
-        "max_team_size": "INTEGER",
-    }
-    for col, ddl in competition_columns.items():
-        if not _column_exists("competitions", col):
-            statements.append(f"ALTER TABLE competitions ADD COLUMN {col} {ddl}")
-
     if not _column_exists("event_participation", "competition_id"):
         statements.append("ALTER TABLE event_participation ADD COLUMN competition_id INTEGER")
         statements.append(
@@ -105,13 +96,21 @@ def _ensure_schema_updates():
         "allow_external": "BOOLEAN NOT NULL DEFAULT FALSE" if dialect == "postgresql" else "BOOLEAN NOT NULL DEFAULT 0",
         "registration_closed_manually": "BOOLEAN NOT NULL DEFAULT FALSE" if dialect == "postgresql" else "BOOLEAN NOT NULL DEFAULT 0",
         "status": "VARCHAR(32) NOT NULL DEFAULT 'Upcoming'",
+        "brochure_path": "VARCHAR(500)",
     }
     for col, ddl in event_columns.items():
         if not _column_exists("events", col):
             statements.append(f"ALTER TABLE events ADD COLUMN {col} {ddl}")
 
-    if not _column_exists("coordinator_profiles", "school"):
-        statements.append("ALTER TABLE coordinator_profiles ADD COLUMN school VARCHAR(160)")
+    competition_columns = {
+        "is_team_event": "BOOLEAN NOT NULL DEFAULT FALSE" if dialect == "postgresql" else "BOOLEAN NOT NULL DEFAULT 0",
+        "min_team_size": "INTEGER",
+        "max_team_size": "INTEGER",
+        "brochure_path": "VARCHAR(500)",
+    }
+    for col, ddl in competition_columns.items():
+        if not _column_exists("competitions", col):
+            statements.append(f"ALTER TABLE competitions ADD COLUMN {col} {ddl}")
     if not _column_exists("coordinator_profiles", "allotted_event_id"):
         statements.append("ALTER TABLE coordinator_profiles ADD COLUMN allotted_event_id INTEGER")
     if not _column_exists("coordinator_profiles", "allotted_competition_id"):

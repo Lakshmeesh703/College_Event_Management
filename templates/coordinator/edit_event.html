@@ -2,7 +2,7 @@
 {% block title %}Edit event{% endblock %}
 {% block content %}
 <h2>Edit event</h2>
-<form method="post" class="card">
+<form method="post" class="card" enctype="multipart/form-data">
   <label for="name">Event name</label>
   <input type="text" id="name" name="name" value="{{ event.name }}" required>
 
@@ -46,6 +46,12 @@
 
   <label for="organizer">Organizer name</label>
   <input type="text" id="organizer" name="organizer" value="{{ event.organizer }}" required>
+
+  <label for="brochure">Event Brochure (PDF, max 10MB)</label>
+  <input type="file" id="brochure" name="brochure" accept=".pdf">
+  {% if event.brochure_path %}
+  <p class="muted">Current brochure: <a href="{{ url_for('main.download_brochure', filepath=event.brochure_path) }}">View Brochure</a></p>
+  {% endif %}
 
   <button type="submit">Save changes</button>
   <a href="{{ url_for('coordinator.dashboard') }}">Back</a>
