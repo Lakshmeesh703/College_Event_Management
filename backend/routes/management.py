@@ -50,7 +50,7 @@ def _generate_otp() -> str:
     return f"{secrets.randbelow(1_000_000):06d}"
 
 
-def _issue_otp(email: str, purpose: str) -> tuple[bool, str]:
+def _issue_otp(email: str, purpose: str) -> bool:
     now = datetime.utcnow()
     EmailOTP.query.filter(
         EmailOTP.email == email,
@@ -67,7 +67,7 @@ def _issue_otp(email: str, purpose: str) -> tuple[bool, str]:
     )
     db.session.add(row)
     db.session.commit()
-    return send_otp_email(email, purpose, code), code
+    return send_otp_email(email, purpose, code)
 
 
 def _consume_otp(email: str, purpose: str, otp_code: str) -> bool:
@@ -588,11 +588,11 @@ def create_coordinator_account():
             )
 
         session["pending_staff_account"] = pending
-        sent, otp_code = _issue_otp(pending["gmail_email"], EmailOTP.PURPOSE_STAFF_CREATE)
+        sent = _issue_otp(pending["gmail_email"], EmailOTP.PURPOSE_STAFF_CREATE)
         if sent:
             flash("OTP sent to the coordinator Gmail account.", "success")
         else:
-            flash(f"Email failed. OTP for testing: {otp_code}", "warning")
+            flash("OTP created but email delivery failed. Check server logs.", "warning")
         return redirect(url_for("management.verify_staff_otp"))
 
     return render_template(
@@ -622,11 +622,11 @@ def create_management_account():
             )
 
         session["pending_staff_account"] = pending
-        sent, otp_code = _issue_otp(pending["gmail_email"], EmailOTP.PURPOSE_STAFF_CREATE)
+        sent = _issue_otp(pending["gmail_email"], EmailOTP.PURPOSE_STAFF_CREATE)
         if sent:
             flash("OTP sent to the management Gmail account.", "success")
         else:
-            flash(f"Email failed. OTP for testing: {otp_code}", "warning")
+            flash("OTP created but email delivery failed. Check server logs.", "warning")
         return redirect(url_for("management.verify_staff_otp"))
 
     return render_template(
@@ -651,11 +651,11 @@ def create_convener_account():
             )
 
         session["pending_staff_account"] = pending
-        sent, otp_code = _issue_otp(pending["gmail_email"], EmailOTP.PURPOSE_STAFF_CREATE)
+        sent = _issue_otp(pending["gmail_email"], EmailOTP.PURPOSE_STAFF_CREATE)
         if sent:
             flash("OTP sent to the convener Gmail account.", "success")
         else:
-            flash(f"Email failed. OTP for testing: {otp_code}", "warning")
+            flash("OTP created but email delivery failed. Check server logs.", "warning")
         return redirect(url_for("management.verify_staff_otp"))
 
     return render_template(

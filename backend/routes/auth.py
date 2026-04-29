@@ -41,7 +41,7 @@ def _generate_otp() -> str:
     return f"{secrets.randbelow(1_000_000):06d}"
 
 
-def _issue_otp(email: str, purpose: str) -> tuple[bool, str]:
+def _issue_otp(email: str, purpose: str) -> bool:
     now = datetime.utcnow()
     EmailOTP.query.filter(
         EmailOTP.email == email,
@@ -60,7 +60,7 @@ def _issue_otp(email: str, purpose: str) -> tuple[bool, str]:
     db.session.commit()
 
     sent = send_otp_email(email, purpose, code)
-    return sent, code
+    return sent
 
 
 def _consume_otp(email: str, purpose: str, otp_code: str) -> bool:
@@ -264,11 +264,11 @@ def signup():
             "year": year,
             "is_external": is_external,
         }
-        sent, otp_code = _issue_otp(email, EmailOTP.PURPOSE_SIGNUP)
+        sent = _issue_otp(email, EmailOTP.PURPOSE_SIGNUP)
         if sent:
             flash("OTP sent to your email. Enter it to complete signup.", "success")
         else:
-            flash(f"Email failed. OTP for testing: {otp_code}", "warning")
+            flash("OTP generated. Email not configured, check server output for OTP.", "warning")
         return redirect(url_for("auth.verify_signup_otp"))
 
     return render_template("auth/signup.html")
@@ -346,12 +346,12 @@ def forgot_password():
             flash("This email is not registered. Please sign up first.", "error")
             return render_template("auth/forgot_password.html")
 
-        sent, otp_code = _issue_otp(email, EmailOTP.PURPOSE_PASSWORD_RESET)
+        sent = _issue_otp(email, EmailOTP.PURPOSE_PASSWORD_RESET)
         session["pending_reset_email"] = email
         if sent:
             flash("OTP sent to your email.", "success")
         else:
-            flash(f"Email failed. OTP for testing: {otp_code}", "warning")
+            flash("OTP generated, but email delivery failed. Please check server log or retry.", "warning")
         return redirect(url_for("auth.reset_password"))
 
     return render_template("auth/forgot_password.html")
